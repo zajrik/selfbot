@@ -1,0 +1,17 @@
+{
+	"name": "Selfbot",
+	"version": "0.0.0",
+	"description": "Give myself some extra commands I guess.",
+	"author": "Zackary Campbell <zajrik@gmail.com>",
+	"scripts": {
+		"main": "node bot/main",
+		"update": "git pull"
+	},
+	"main": "bot/main.js",
+	"dependencies": {
+		"discord.js": ">9.0.0",
+		"colors": "*",
+		"util": "*"
+	},
+	"private": true
+}
