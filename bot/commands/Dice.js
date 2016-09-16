@@ -9,7 +9,7 @@ class Dice extends Command
 	constructor()
 	{
 		// Activation command regex
-		let command = /^\!(\d{1,3})?d(4|6|8|10|12|20|100)(?: (\d{1,2}))?$/;
+		let command = /^(\d{1,3})?d(4|6|8|10|12|20|100)(?: (\d{1,2}))?$/;
 
 		/**
 		 * Action to take when the command is received

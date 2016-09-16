@@ -10,7 +10,7 @@ class Uptime extends Command
 	constructor()
 	{
 		// Activation command regex
-		let command = /^\!uptime$/;
+		let command = /^uptime$/;
 
 		/**
 		 * Action to take when the command is received

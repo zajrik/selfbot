@@ -10,7 +10,7 @@ class Version extends Command
 	constructor()
 	{
 		// Activation command regex
-		let command = /^\!version$/;
+		let command = /^version$/;
 
 		/**
 		 * Action to take when the command is received

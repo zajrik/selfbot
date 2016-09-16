@@ -21,40 +21,40 @@ class Command
 	}
 
 	/**
-	 * Assign the bot instance to the command and hook the onMessage event
-	 * to create a Promise when a message containing a command is received
+	 * Assign the bot instance to the command
 	 * @param {Bot} bot Discord.js client instance
 	 * @returns {null}
 	 */
 	Register(bot)
 	{
 		this.bot = bot;
-		this.bot.on("message", (message) =>
-		{
-			if (message.content.match(this.command))
-			{
-				// Don't execute command if not selfbot user
-				if (message.author !== this.bot.user) return;
-				this.async = new Promise( (resolve, reject) =>
-				{
-					this.action(message, resolve, reject);
-				});
+	}
 
-				this.async.then( (result) =>
-				{
-					this.bot.Say(result);
-				}, (err) =>
-				{
-					this.bot.Say(err.stack ? err.stack.red : err.red);
-				});
-			}
+	/**
+	 * Return a promise with the action to be executed
+	 * @param {object} message message object passed by parent caller
+	 * @returns {Promise}
+	 */
+	DoAction(message)
+	{
+		this.async = new Promise( (resolve, reject) =>
+		{
+			this.action(message, resolve, reject);
 		});
+
+		return this.async;
 	}
 
 	// Edit the selfbot users post with the command output
 	UpdateMessage(message, output)
 	{
 		setTimeout(() => { message.edit(output); }, 50);
+	}
+
+	// Delete the selfbot users post
+	DeleteMessage(message)
+	{
+		setTimeout(() => { message.delete(); }, 50);
 	}
 }
 

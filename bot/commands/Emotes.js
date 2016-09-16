@@ -10,7 +10,7 @@ class Version extends Command
 	constructor()
 	{
 		// Activation command regex
-		let command = /^\!(lenny|shrug|denko|lod|doubleflip|bear)$/;
+		let command = /^(lenny|shrug|denko|lod|doubleflip|bear)$/;
 
 		/**
 		 * Action to take when the command is received
@@ -31,7 +31,7 @@ class Version extends Command
 				["bear", "ʕ•͡ᴥ•ʔ"]
 			]);
 
-			// Send version to channel
+			// Replace command message with emote
 			this.UpdateMessage(message, emotes.get(match));
 		}
 
