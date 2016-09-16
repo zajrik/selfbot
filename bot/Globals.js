@@ -18,10 +18,11 @@
 	CommandRegistry       = require("./lib/CommandRegistry");
 
 	// Commands
-	Command_Dice       = require("./commands/Dice");
-	Command_Emotes     = require("./commands/Emotes");
-	Command_Uptime     = require("./commands/Uptime");
-	Command_Version    = require("./commands/Version");
+	Command_Eval    = require("./commands/Eval");
+	Command_Dice    = require("./commands/Dice");
+	Command_Emotes  = require("./commands/Emotes");
+	Command_Uptime  = require("./commands/Uptime");
+	Command_Version = require("./commands/Version");
 
 	// Tasks
 

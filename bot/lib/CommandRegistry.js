@@ -22,8 +22,8 @@ class CommandRegistry extends Array
 			// Ensure only selfbot user can trigger commands
 			if (message.author !== this.bot.user) return;
 
-			// Remove prefix from command and message content for parsing
-			let command = message.content.split(" ")[0].slice(settings.prefix.length);
+			// Get everything after prefex from command
+			let command = message.content.slice(settings.prefix.length);
 			message.content = command;
 
 			// Check for command matches and execute the
