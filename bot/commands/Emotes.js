@@ -5,7 +5,7 @@ require("../Globals");
  * Call with /version
  * @extends {command}
  */
-class Version extends Command
+class Emotes extends Command
 {
 	constructor()
 	{
@@ -40,4 +40,4 @@ class Version extends Command
 	}
 }
 
-module.exports = Version;
+module.exports = Emotes;

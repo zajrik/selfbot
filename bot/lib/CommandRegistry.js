@@ -12,6 +12,7 @@ class CommandRegistry extends Array
 	constructor(bot)
 	{
 		super();
+		this.names = new Array();
 		this.bot = bot;
 
 		this.bot.on("message", (message) =>
@@ -57,6 +58,7 @@ class CommandRegistry extends Array
 	{
 		command.Register(this.bot);
 		this.push(command);
+		this.names.push(command.constructor.name);
 	}
 }
 
