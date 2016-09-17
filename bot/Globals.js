@@ -18,6 +18,7 @@
 	CommandRegistry       = require("./lib/CommandRegistry");
 
 	// Commands
+	Command_Help    = require("./commands/Help");
 	Command_Eval    = require("./commands/Eval");
 	Command_Dice    = require("./commands/Dice");
 	Command_Emotes  = require("./commands/Emotes");

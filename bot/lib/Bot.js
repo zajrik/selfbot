@@ -26,6 +26,7 @@ class Bot extends Client
 		this.scheduler = new Scheduler(this);
 
 		// Register commands
+		this.commands.Register(new Command_Help());
 		this.commands.Register(new Command_Eval());
 		this.commands.Register(new Command_Dice());
 		this.commands.Register(new Command_Emotes());

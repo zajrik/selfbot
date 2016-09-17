@@ -4,13 +4,23 @@ require("../Globals");
  * Command to evaluate code and post the results
  * Adapted from Evie's selfbot eval command:
  * https://github.com/eslachance/djs-selfbot-v9/blob/master/self.js#L201
- * Call with /eval [code]
  * @extends {command}
  */
 class Eval extends Command
 {
 	constructor()
 	{
+		// Helptext values
+		let desc  = "Evaluates the given code and prints the result";
+		let usage = `${settings.prefix}eval <code>`;
+		let help  = `The eval does not require any code to be inline with the command itself. eg:
+
+		${settings.prefix}eval
+		let x = 5;
+		x;
+
+will still output the value of x.`;
+
 		// Activation command regex
 		let command = /^eval(?: *\n*((?:.|[\r\n])+))?$/;
 
@@ -35,7 +45,7 @@ class Eval extends Command
 			{
 				let evaled = eval(code);
 				if (typeof evaled !== "string")
-					evaled = inspect(evaled);
+					evaled = inspect(evaled, {depth: 0});
 
 				this.UpdateMessage(message,
 					"**INPUT:**\n```js\n" + code + "\n```\n**OUTPUT:**\n```xl\n" + Clean(evaled) + "\n```");
@@ -59,7 +69,7 @@ class Eval extends Command
 		}
 
 		// Pass params to parent constructor
-		super(command, action);
+		super(command, action, desc, usage, help);
 	}
 }
 

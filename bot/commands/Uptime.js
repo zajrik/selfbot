@@ -2,13 +2,17 @@ require("../Globals");
 
 /**
  * Command to see the time since the bot was launched
- * Call with /uptime
  * @extends {command}
  */
 class Uptime extends Command
 {
 	constructor()
 	{
+		// Helptext values
+		let desc  = "Prints time since the bot was started";
+		let usage = `${settings.prefix}uptime`;
+		let help  = ``;
+
 		// Activation command regex
 		let command = /^uptime$/;
 
@@ -32,7 +36,7 @@ class Uptime extends Command
 		}
 
 		// Pass params to parent constructor
-		super(command, action);
+		super(command, action, desc, usage, help);
 	}
 }
 

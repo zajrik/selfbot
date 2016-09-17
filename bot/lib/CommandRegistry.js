@@ -12,7 +12,7 @@ class CommandRegistry extends Array
 	constructor(bot)
 	{
 		super();
-		this.names = new Array();
+		this.info = {};
 		this.bot = bot;
 
 		this.bot.on("message", (message) =>
@@ -49,8 +49,9 @@ class CommandRegistry extends Array
 	}
 
 	/**
-	 * Pass the Bot instance to the given command and add
-	 * command to parent Array
+	 * Pass the Bot instance to the given command, add
+	 * command to parent Array, and push command info
+	 * fields to the info array for helpdocs
 	 * @param {Command} command Command to be registered
 	 * @returns {null}
 	 */
@@ -58,7 +59,12 @@ class CommandRegistry extends Array
 	{
 		command.Register(this.bot);
 		this.push(command);
-		this.names.push(command.constructor.name);
+		this.info[command.constructor.name] =
+		{
+			desc: command.desc,
+			usage: command.usage,
+			help: command.help
+		}
 	}
 }
 

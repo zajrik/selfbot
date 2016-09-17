@@ -14,10 +14,13 @@ class Command
 	 *                        Action must receive the message object as well as
 	 *                        the Promise resolve and reject methods when created
 	 */
-	constructor(command, action)
+	constructor(command, action, desc, usage, help)
 	{
 		this.command = command;
 		this.action = action;
+		this.desc = desc;
+		this.usage = usage;
+		this.help = help;
 	}
 
 	/**

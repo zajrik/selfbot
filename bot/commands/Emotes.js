@@ -2,13 +2,23 @@ require("../Globals");
 
 /**
  * Command to post custom emotes
- * Call with /version
  * @extends {command}
  */
 class Emotes extends Command
 {
 	constructor()
 	{
+		// Helptext values
+		let desc  = "Prints the requested emote";
+		let usage = `${settings.prefix}<emote>`;
+		let help  = `Current list of avalable emotes is:
+	lenny      : ( ͡° ͜ʖ ͡°)
+	shrug      : ¯\\_(ツ)_/¯
+	denko      : (´・ω・\`)
+	lod        : ಠ_ಠ
+	doubleflip : ┻━┻ ︵ヽ(\`Д´)ﾉ︵﻿ ┻━┻
+	bear       : ʕ•͡ᴥ•ʔ`;
+
 		// Activation command regex
 		let command = /^(lenny|shrug|denko|lod|doubleflip|bear)$/;
 
@@ -36,7 +46,7 @@ class Emotes extends Command
 		}
 
 		// Pass params to parent constructor
-		super(command, action);
+		super(command, action, desc, usage, help);
 	}
 }
 

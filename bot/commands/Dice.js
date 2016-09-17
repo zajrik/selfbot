@@ -8,6 +8,14 @@ class Dice extends Command
 {
 	constructor()
 	{
+		// Helptext values
+		let desc  = "Roll a sided die a number of times";
+		let usage = `${settings.prefix}<quantity>d<sides> [quantity]`;
+		let help  = `Examples:\n\t${settings.prefix}5d20\n\t${settings.prefix}d20 5
+	${settings.prefix}d10
+
+If a quantity is not specified, a single die will be rolled.`;
+
 		// Activation command regex
 		let command = /^(\d{1,3})?d(4|6|8|10|12|20|100)(?: (\d{1,2}))?$/;
 
@@ -63,8 +71,9 @@ class Dice extends Command
 
 			roll(sides, dice);
 		}
+
 		// Pass params to parent constructor
-		super(command, action);
+		super(command, action, desc, usage, help);
 	}
 }
 module.exports = Dice;
