@@ -19,6 +19,11 @@ class Emotes extends Command
 	doubleflip : ┻━┻ ︵ヽ(\`Д´)ﾉ︵﻿ ┻━┻
 	bear       : ʕ•͡ᴥ•ʔ`;
 
+		// TODO: Dynamically generate the emotes list in the helptext
+		// 		 Loop through and pad to the colon. If the list gets
+		// 		 too big, don't continue to include the emote itself,
+		// 		 just the name, and pad it for columns
+
 		// Activation command regex
 		let command = /^(lenny|shrug|denko|lod|doubleflip|bear)$/;
 
