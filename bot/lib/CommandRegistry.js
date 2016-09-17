@@ -50,7 +50,7 @@ class CommandRegistry extends Array
 
 	/**
 	 * Pass the Bot instance to the given command, add
-	 * command to parent Array, and push command info
+	 * command to parent Array, and push command helptext
 	 * fields to the info array for helpdocs
 	 * @param {Command} command Command to be registered
 	 * @returns {null}

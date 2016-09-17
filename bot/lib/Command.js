@@ -13,6 +13,9 @@ class Command
 	 * @param {method} action action that will be executed
 	 *                        Action must receive the message object as well as
 	 *                        the Promise resolve and reject methods when created
+	 * @param {string} desc   helptext description of command
+	 * @param {string} usage  helptext usage of command
+	 * @param {string} help   helptext additional information about command
 	 */
 	constructor(command, action, desc, usage, help)
 	{
@@ -54,7 +57,7 @@ class Command
 		setTimeout(() => { message.edit(output); }, 50);
 	}
 
-	// Delete the selfbot users post
+	// Delete the selfbot users post after a short period
 	DeleteMessage(message)
 	{
 		setTimeout(() => { message.delete(); }, 50);

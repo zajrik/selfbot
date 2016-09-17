@@ -25,6 +25,9 @@ class Bot extends Client
 		// Create an action scheduler for the bot
 		this.scheduler = new Scheduler(this);
 
+		// Initialize a database for the bot
+		this.db = new JsonDB("data-store", true, true);
+
 		// Register commands
 		this.commands.Register(new Command_Help());
 		this.commands.Register(new Command_Eval());
@@ -32,6 +35,7 @@ class Bot extends Client
 		this.commands.Register(new Command_Emotes());
 		this.commands.Register(new Command_Uptime());
 		this.commands.Register(new Command_Version());
+		this.commands.Register(new Command_Restart());
 
 		// Schedule tasks
 
@@ -40,6 +44,40 @@ class Bot extends Client
 		// Ready event
 		this.on("ready", () =>
 		{
+			// Edit last message with restart success if coming online from
+			// a restart via restart command
+			try
+			{
+				var doRestart = this.db.getData("/doRestart");
+				var restartID = this.db.getData("/restartID");
+				var restartTime = this.db.getData("/restartTime");
+			}
+			catch (e)
+			{
+				this.db.push("/doRestart", false);
+				var doRestart = this.db.getData("/doRestart");
+				this.db.push("/restartID", undefined);
+				var restartID = this.db.getData("/restartID");
+				this.db.push("/restartTime", 0);
+				var restartTime = this.db.getData("/restartTime");
+			}
+			if (doRestart)
+			{
+				this.Say("Restart completed.");
+				this.db.push("/doRestart", false);
+
+				// Send restart complete message to channel
+				var channel = this.channels.find("id", restartID);
+				channel.sendCode("css", `Selfbot restart completed. (${(Time.now() - restartTime) / 1000} secs)`)
+					.then(msg =>
+					{
+						// Remove the message after 3 seconds
+						setTimeout(() =>{
+							msg.delete();
+						}, 3000);
+					});
+			}
+			
 			this.user.setStatus("online", "with my selfbot")
 				.then(user => this.Say(
 					`Status set to: ${user.status}, ${user.game.name}`))

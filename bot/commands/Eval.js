@@ -15,9 +15,9 @@ class Eval extends Command
 		let usage = `${settings.prefix}eval <code>`;
 		let help  = `The eval does not require any code to be inline with the command itself. eg:
 
-		${settings.prefix}eval
-		let x = 5;
-		x;
+	${settings.prefix}eval
+	let x = 5;
+	x;
 
 will still output the value of x.`;
 

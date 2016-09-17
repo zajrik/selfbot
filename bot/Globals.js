@@ -24,6 +24,7 @@
 	Command_Emotes  = require("./commands/Emotes");
 	Command_Uptime  = require("./commands/Uptime");
 	Command_Version = require("./commands/Version");
+	Command_Restart = require("./commands/Restart");
 
 	// Tasks
 
@@ -31,6 +32,7 @@
 	Time        = require("./lib/Time");
 
 	// Node Modules
+	JsonDB    = require("../node_modules/node-json-db");
 	colors    = require("../node_modules/colors");
 	inspect   = require("../node_modules/util").inspect;
 

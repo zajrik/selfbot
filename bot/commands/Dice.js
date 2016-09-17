@@ -16,7 +16,13 @@ class Dice extends Command
 
 If a quantity is not specified, a single die will be rolled. Quantity can be given ` +
 `before or after the "d" in the command. If for some reason you decide to provide ` +
-`a quantity before AND after the "d", only the quantity before will be used.`;
+`a quantity before AND after the "d", only the quantity before will be used.
+
+Valid die shapes are:
+
+	d4, d6, d8, d10, d10, d12, d20, d100
+
+The maximum number of dice that can be rolled at any one time is 100.`;
 
 		// Activation command regex
 		let command = /^(\d{1,3})?d(4|6|8|10|12|20|100)(?: (\d{1,2}))?$/;
