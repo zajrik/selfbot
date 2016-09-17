@@ -13,7 +13,7 @@ class Eval extends Command
 		// Helptext values
 		let desc  = "Evaluates the given code and prints the result";
 		let usage = `${settings.prefix}eval <code>`;
-		let help  = `The eval does not require any code to be inline with the command itself. eg:
+		let help  = `The command does not require any code to be inline with the command itself. eg:
 
 	${settings.prefix}eval
 	let x = 5;

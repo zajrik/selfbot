@@ -48,13 +48,35 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 				});
 				helptext += "\n```"
 
-				this.UpdateMessage(message, helptext);
+				// this.UpdateMessage(message, helptext);
+				message.delete().then(message =>
+				{
+					message.channel.sendMessage(helptext).then(message =>
+					{
+						setTimeout(() =>
+						{
+							message.delete();
+						}, 20 * 1000);
+					});
+				});
 			}
 			else
 			{
 				let cmd = this.bot.commands.info[command.toTitleCase()];
-				this.UpdateMessage(message,
-					`\`\`\`xl\nDescription: ${cmd.desc}\nUsage: ${cmd.usage}\n\n${cmd.help}\n\`\`\``);
+				// this.UpdateMessage(message,
+				// 	`\`\`\`xl\nDescription: ${cmd.desc}\nUsage: ${cmd.usage}\n\n${cmd.help}\n\`\`\``);
+				message.delete().then(message =>
+				{
+					message.channel.sendMessage(
+						`\`\`\`xl\nDescription: ${cmd.desc}\nUsage: ${cmd.usage}\n\n${cmd.help}\n\`\`\``)
+						.then(message =>
+						{
+							setTimeout(() =>
+							{
+								message.delete();
+							}, 20 * 1000);
+						});
+				});
 			}
 		}
 
