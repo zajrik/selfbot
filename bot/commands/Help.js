@@ -56,15 +56,6 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 				this.UpdateMessage(message,
 					`\`\`\`xl\nDescription: ${cmd.desc}\nUsage: ${cmd.usage}\n\n${cmd.help}\n\`\`\``);
 			}
-
-			// Pad the right side of a string with spaces
-			// to the desired length
-			function Pad(text, length)
-			{
-				return text + ' '.repeat(length - text.length);
-			}
-
-
 		}
 
 		// Pass params to parent constructor

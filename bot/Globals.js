@@ -55,3 +55,10 @@ String.prototype.toTitleCase = function()
 		return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
 	});
 }
+
+// Pad the right side of a string with spaces
+// to the desired length
+Pad = (text, length) =>
+{
+	return text + ' '.repeat(length - text.length);
+}
