@@ -14,7 +14,9 @@ class Dice extends Command
 		let help  = `Examples:\n\t${settings.prefix}5d20\n\t${settings.prefix}d20 5
 	${settings.prefix}d10
 
-If a quantity is not specified, a single die will be rolled.`;
+If a quantity is not specified, a single die will be rolled. Quantity can be given ` +
+`before or after the "d" in the command. If for some reason you decide to provide ` +
+`a quantity before AND after the "d", only the quantity before will be used.`;
 
 		// Activation command regex
 		let command = /^(\d{1,3})?d(4|6|8|10|12|20|100)(?: (\d{1,2}))?$/;
