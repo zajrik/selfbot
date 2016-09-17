@@ -58,7 +58,7 @@ class Bot extends Client
 				var doRestart = this.db.getData("/doRestart");
 				this.db.push("/restartID", undefined);
 				var restartID = this.db.getData("/restartID");
-				this.db.push("/restartTime", 0);
+				this.db.push("/restartTime", 1);
 				var restartTime = this.db.getData("/restartTime");
 			}
 			if (doRestart)
@@ -77,7 +77,7 @@ class Bot extends Client
 						}, 3000);
 					});
 			}
-			
+
 			this.user.setStatus("online", "with my selfbot")
 				.then(user => this.Say(
 					`Status set to: ${user.status}, ${user.game.name}`))
