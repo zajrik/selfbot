@@ -21,7 +21,6 @@
 	Command_Help    = require("./commands/Help");
 	Command_Eval    = require("./commands/Eval");
 	Command_Dice    = require("./commands/Dice");
-	Command_Emotes  = require("./commands/Emotes");
 	Command_AddTag  = require("./commands/AddTag");
 	Command_DelTag  = require("./commands/DelTag");
 	Command_AllTags = require("./commands/AllTags");
