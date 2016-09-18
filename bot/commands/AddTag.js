@@ -14,7 +14,7 @@ class AddTag extends Command
 		let help  = `A tag can then be recalled via ${settings.prefix}tag <tag key>\nAll tags can be listed with ${settings.prefix}alltags`;
 
 		// Activation command regex
-		let command = /^addtag ([a-zA-Z]+) (.+)$/;
+		let command = /^addtag ([a-zA-Z]+)(?: *\n*((?:.|[\r\n])+))$/;
 
 		/**
 		 * Action to take when the command is received
