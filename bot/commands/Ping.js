@@ -32,7 +32,7 @@ class Ping extends Command
 				message.edit(`\`Pong! (${(Time.now() - this.bot.pinged)}ms)\``)
 					.then(message =>
 					{
-						setTimeout(() => { message.delete() }, 2 * 1000);
+						message.delete(2 * 1000);
 					});
 			});
 		}

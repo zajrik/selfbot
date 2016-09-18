@@ -58,7 +58,7 @@ class DelTag extends Command
 						// Notify user of removed tag
 						message.channel.sendCode("css", `Tag "${tagKey}" removed.`).then(message =>
 						{
-							setTimeout(() => { message.delete(); }, 3 * 1000);
+							message.delete(3 * 1000);
 						});
 						return;
 					}
@@ -69,7 +69,7 @@ class DelTag extends Command
 					// Notify user of nonexistant tag
 					message.channel.sendCode("css", `Tag "${tagKey}" does not exist.`).then(message =>
 					{
-						setTimeout(() => { message.delete(); }, 3 * 1000);
+						message.delete(3 * 1000);
 					});
 				}
 

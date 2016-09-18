@@ -36,7 +36,7 @@ class BotCmd extends Command
 				{
 					message.channel.sendCode("css", `Invalid bot command.`).then(message =>
 					{
-						setTimeout(() => { message.delete(); }, 3 * 1000);
+						message.delete(3 * 1000);
 					});
 				});
 				return;
@@ -69,7 +69,7 @@ class BotCmd extends Command
 						{
 							message.channel.sendCode("css", "Bot command timed out.").then(msg =>
 							{
-								setTimeout(() => { msg.delete() }, 3 * 1000);
+								msg.delete(3 * 1000);
 							});
 						}
 						message.delete();

@@ -61,7 +61,7 @@ class ReTag extends Command
 						// Notify user of tag update
 						message.channel.sendCode("css", `Tag "${tagKey}" has been updated.`).then(message =>
 						{
-							setTimeout(() => { message.delete(); }, 3 * 1000);
+							message.delete(3 * 1000);
 						});
 						return;
 					}
@@ -72,7 +72,7 @@ class ReTag extends Command
 					// Notify user of nonexistant tag
 					message.channel.sendCode("css", `Tag "${tagKey}" does not exist.`).then(message =>
 					{
-						setTimeout(() => { message.delete(); }, 3 * 1000);
+						message.delete(3 * 1000);
 					});
 				}
 			});

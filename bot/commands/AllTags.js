@@ -68,7 +68,7 @@ class AllTags extends Command
 			{
 				message.channel.sendMessage(alltags).then(message =>
 				{
-					setTimeout(() => { message.delete(); }, 20 * 1000);
+					message.delete(20 * 1000);
 				});
 			});
 		}

@@ -57,10 +57,7 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 				{
 					message.channel.sendMessage(helptext).then(message =>
 					{
-						setTimeout(() =>
-						{
-							message.delete();
-						}, 20 * 1000);
+						message.delete(20 * 1000);
 					});
 				});
 			}
@@ -77,10 +74,7 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 						`Usage: ${cmd.usage}\n\n${cmd.help}\n\`\`\``)
 							.then(message =>
 							{
-								setTimeout(() =>
-								{
-									message.delete();
-								}, 20 * 1000);
+								message.delete(20 * 1000);
 							});
 				});
 			}

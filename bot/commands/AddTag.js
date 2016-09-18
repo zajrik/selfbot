@@ -54,7 +54,7 @@ class AddTag extends Command
 						foundTag = true;
 						message.channel.sendCode("css", `Tag "${tagKey}" already exists.`).then(message =>
 						{
-							setTimeout(() => { message.delete(); }, 3 * 1000);
+							message.delete(3 * 1000);
 						});
 						return;
 					}
@@ -66,7 +66,7 @@ class AddTag extends Command
 					this.bot.db.push("/tags[]", [tagKey, tagVal], true);
 					message.channel.sendCode("css", `Tag "${tagKey}" added.`).then(message =>
 					{
-						setTimeout(() => { message.delete(); }, 3 * 1000);
+						message.delete(3 * 1000);
 					});
 				}
 			});

@@ -33,7 +33,7 @@ class Prune extends Command
 				{
 					message.channel.sendCode("css", `You must enter a number of messages to prune.`).then(message =>
 					{
-						setTimeout(() => { message.delete(); }, 3 * 1000);
+						message.delete(3 * 1000);
 					});
 				});
 				return;
