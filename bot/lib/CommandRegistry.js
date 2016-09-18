@@ -59,7 +59,7 @@ class CommandRegistry extends Array
 	{
 		command.Register(this.bot);
 		this.push(command);
-		this.info[command.constructor.name] =
+		this.info[command.constructor.name.toLowerCase()] =
 		{
 			desc: command.desc,
 			usage: command.usage,

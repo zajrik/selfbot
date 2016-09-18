@@ -48,7 +48,7 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 				});
 				helptext += "\n```"
 
-				// this.UpdateMessage(message, helptext);
+				// Send helptext, delete after 20 secs
 				message.delete().then(message =>
 				{
 					message.channel.sendMessage(helptext).then(message =>
@@ -62,9 +62,9 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 			}
 			else
 			{
-				let cmd = this.bot.commands.info[command.toTitleCase()];
-				// this.UpdateMessage(message,
-				// 	`\`\`\`xl\nDescription: ${cmd.desc}\nUsage: ${cmd.usage}\n\n${cmd.help}\n\`\`\``);
+				let cmd = this.bot.commands.info[command.toLowerCase()];
+
+				// Send helptext, delete after 20 secs
 				message.delete().then(message =>
 				{
 					message.channel.sendMessage(
