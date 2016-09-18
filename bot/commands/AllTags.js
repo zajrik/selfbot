@@ -10,11 +10,12 @@ class AllTags extends Command
 	{
 		// Helptext values
 		let desc  = "Print all available tags to the channel";
-		let usage = `${settings.prefix}alltags`;
+		let alias = "tags";
+		let usage = `\n\t${settings.prefix}alltags\n\t${settings.prefix}tags`;
 		let help  = ``;
 
 		// Activation command regex
-		let command = /^alltags$/;
+		let command = /^(?:alltags|tags)$/;
 
 		/**
 		 * Action to take when the command is received
@@ -73,7 +74,7 @@ class AllTags extends Command
 		}
 
 		// Pass params to parent constructor
-		super(command, action, desc, usage, help);
+		super(command, action, desc, usage, help, alias);
 	}
 }
 

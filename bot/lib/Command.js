@@ -16,14 +16,17 @@ class Command
 	 * @param {string} desc   helptext description of command
 	 * @param {string} usage  helptext usage of command
 	 * @param {string} help   helptext additional information about command
+	 * @param {string} alias  helptext optional alias, does not need to be defined
+	 *                        or passed to super at class creation
 	 */
-	constructor(command, action, desc, usage, help)
+	constructor(command, action, desc, usage, help, alias)
 	{
 		this.command = command;
 		this.action = action;
 		this.desc = desc;
 		this.usage = usage;
 		this.help = help;
+		this.alias = alias;
 	}
 
 	/**

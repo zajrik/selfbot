@@ -68,14 +68,16 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 				message.delete().then(message =>
 				{
 					message.channel.sendMessage(
-						`\`\`\`xl\nDescription: ${cmd.desc}\nUsage: ${cmd.usage}\n\n${cmd.help}\n\`\`\``)
-						.then(message =>
-						{
-							setTimeout(() =>
+						`\`\`\`xl\nDescription: ${cmd.desc}` +
+						`${cmd.alias ? "\nAlias: " + cmd.alias : ""}\n` +
+						`Usage: ${cmd.usage}\n\n${cmd.help}\n\`\`\``)
+							.then(message =>
 							{
-								message.delete();
-							}, 20 * 1000);
-						});
+								setTimeout(() =>
+								{
+									message.delete();
+								}, 20 * 1000);
+							});
 				});
 			}
 		}

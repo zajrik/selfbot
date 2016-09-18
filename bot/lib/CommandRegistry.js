@@ -27,6 +27,9 @@ class CommandRegistry extends Array
 			let command = message.content.slice(settings.prefix.length);
 			message.content = command;
 
+			// Start a ping timer
+			if (command == "ping") this.bot.pinged = Time.now();
+
 			// Check for command matches and execute the
 			// appropriate command action
 			this.forEach( (item) =>
@@ -63,7 +66,8 @@ class CommandRegistry extends Array
 		{
 			desc: command.desc,
 			usage: command.usage,
-			help: command.help
+			help: command.help,
+			alias: command.alias
 		}
 	}
 }
