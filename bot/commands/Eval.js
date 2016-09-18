@@ -57,14 +57,15 @@ will still output the value of x.`;
 			}
 		}
 
-		// Clean up text with zero-width-spaces
+		// Clean up text with zero-width-spaces, remove token if it pops up
 		let Clean = (text) =>
 		{
 			if (typeof(text) === "string")
 			{
 		    	return text
 					.replace(/`/g, "`" + String.fromCharCode(8203))
-					.replace(/@/g, "@" + String.fromCharCode(8203));
+					.replace(/@/g, "@" + String.fromCharCode(8203))
+					.replace(/[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g, "[REDACTED]");
 			}
 		  	else return text;
 		}
