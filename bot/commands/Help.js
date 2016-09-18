@@ -32,16 +32,20 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 			// List all commands
 			if (!command)
 			{
-				let helptext = "```xl\nAvailable commands:\n"
+				// Get command names and sort alphabetically
+				var commands = Object.keys(this.bot.commands.info);
+				commands.sort();
 
 				// Find widest command name for list padding
 				let maxWidth = 0;
-				Object.keys(this.bot.commands.info).forEach( (key) =>
+				commands.forEach( (key) =>
 				{
 					if (key.length > maxWidth) maxWidth = key.length;
 				});
 
-				Object.keys(this.bot.commands.info).forEach( (key) =>
+				// Build helptext
+				let helptext = "```xl\nAvailable commands:\n"
+				commands.forEach( (key) =>
 				{
 					let cmd = this.bot.commands.info[key];
 					helptext += `${Pad(key, maxWidth + 1)}: ${cmd.desc}\n`;
