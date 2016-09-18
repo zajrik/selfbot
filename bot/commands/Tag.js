@@ -40,17 +40,32 @@ class Tag extends Command
 				var tags = this.bot.db.getData("/tags");
 			}
 
+
 			// Get tag value by key
-			var tag = "";
+			let tag = "";
+			let foundTag = false;
 			tags.forEach( (value, index) =>
 			{
-				if (value[0] == tagKey) tag = tags[index][1];
+				if (value[0] == tagKey)
+				{
+					foundTag = true;
+					tag = tags[index][1];
+
+					// Send tag to channel
+					message.edit(tag);
+					return;
+				}
 			});
 
-			// Delete tag command message and send tag to channel.
-			// Prevents "(edited)" message on tags
-			message.delete();
-			message.channel.sendMessage(tag);
+			if (!foundTag)
+			{
+				// Notify user of nonexistant tag
+				message.edit(`\`\`\`css\nTag "${tagKey}" does not exist.\n\`\`\``).then(message =>
+				{
+					setTimeout(() => { message.delete(); }, 3 * 1000);
+				});
+				return;
+			}
 		}
 
 		// Pass params to parent constructor

@@ -1,20 +1,20 @@
 require("../Globals");
 
 /**
- * Command to remove a tag from the tag DB entry
+ * Command to replace a tag in the DB with a new value
  * @extends {command}
  */
-class DelTag extends Command
+class ReTag extends Command
 {
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Remove a tag from the tags database";
-		let usage = `${settings.prefix}deltag <tag key>`;
-		let help  = ``;
+		let desc  = "Replace a tags value in the database";
+		let usage = `${settings.prefix}retag <tag key> <tag value>`;
+		let help  = `Tags can then be recalled via ${settings.prefix}tag <tag key>\nAll tags can be listed with ${settings.prefix}alltags`;
 
 		// Activation command regex
-		let command = /^deltag ([a-zA-Z]+)$/;
+		let command = /^retag ([a-zA-Z]+) (.+)$/;
 
 		/**
 		 * Action to take when the command is received
@@ -26,9 +26,10 @@ class DelTag extends Command
 		let action = (message, resolve, reject) =>
 		{
 			let tagKey = message.content.match(this.command)[1] || undefined;
+			let tagVal = message.content.match(this.command)[2] || undefined;
 
 			// Break on invalid args
-			if (!tagKey) return;
+			if (!tagKey || !tagVal) return;
 
 			try
 			{
@@ -40,11 +41,10 @@ class DelTag extends Command
 				var tags = this.bot.db.getData("/tags");
 			}
 
-			// remove the tag from the db the tag to the db, notify user and delete the message
 			message.delete().then(message =>
 			{
-				// Find the tag and remove it
-				var foundTag = false;
+				// Find tag in DB
+				let foundTag = false;
 				tags.forEach( (value, index) =>
 				{
 					if (value[0] == tagKey)
@@ -52,17 +52,20 @@ class DelTag extends Command
 						foundTag = true;
 						tags.splice(index, 1);
 
+						// Re-add tag with new value
+						tags.push([tagKey, tagVal]);
+
 						this.bot.db.delete("/tags");
 						this.bot.db.push("/tags", tags);
 
-						// Notify user of removed tag
-						message.channel.sendCode("css", `Tag "${tagKey}" removed.`).then(message =>
+						// Notify user of tag update
+						message.channel.sendCode("css", `Tag "${tagKey}" has been updated.`).then(message =>
 						{
 							setTimeout(() => { message.delete(); }, 3 * 1000);
 						});
 						return;
 					}
-				});
+				})
 
 				if (!foundTag)
 				{
@@ -72,7 +75,6 @@ class DelTag extends Command
 						setTimeout(() => { message.delete(); }, 3 * 1000);
 					});
 				}
-
 			});
 		}
 
@@ -81,4 +83,4 @@ class DelTag extends Command
 	}
 }
 
-module.exports = DelTag;
+module.exports = ReTag;

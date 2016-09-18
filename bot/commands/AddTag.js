@@ -41,31 +41,34 @@ class AddTag extends Command
 				var tags = this.bot.db.getData("/tags");
 			}
 
-			// Check if tag already exists
-			tags.forEach(value =>
+			// Add the tag to the db, notify user and delete the message
+			message.delete().then(message =>
 			{
-				if (value[0] == tagKey)
+				// Check if tag already exists
+				var foundTag = false;
+				tags.forEach(value =>
 				{
-					// Notify of duplicate tag and break
-					message.delete().then(message =>
+					if (value[0] == tagKey)
 					{
+						// Notify user that tag exists already
+						foundTag = true;
 						message.channel.sendCode("css", `Tag "${tagKey}" already exists.`).then(message =>
 						{
 							setTimeout(() => { message.delete(); }, 3 * 1000);
 						});
-					});
-					return;
-				}
-			})
+						return;
+					}
+				})
 
-			// Add the tag to the db, notify user and delete the message
-			message.delete().then(message =>
-			{
-				this.bot.db.push("/tags[]", [tagKey, tagVal], true);
-				message.channel.sendCode("css", `Tag "${tagKey}" added.`).then(message =>
+				if (!foundTag)
 				{
-					setTimeout(() => { message.delete(); }, 3 * 1000);
-				});
+					// Notify user of added tag
+					this.bot.db.push("/tags[]", [tagKey, tagVal], true);
+					message.channel.sendCode("css", `Tag "${tagKey}" added.`).then(message =>
+					{
+						setTimeout(() => { message.delete(); }, 3 * 1000);
+					});
+				}
 			});
 		}
 
