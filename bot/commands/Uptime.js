@@ -30,9 +30,11 @@ class Uptime extends Command
 			// Use Time.Difference to convert uptime ms into something useable
 			let uptime = Time.Difference(this.bot.uptime * 2, this.bot.uptime);
 
-			// Send uptime to channel
-			this.UpdateMessage(message,
-				`\`\`\`css\nUptime: ${uptime.toString()}.\n\`\`\``);
+			// Send uptime to channel, renove after 3 secs
+			message.edit(`\`\`\`css\nUptime: ${uptime.toString()}.\n\`\`\``).then(message =>
+			{
+				message.delete(3 * 1000);
+			})
 		}
 
 		// Pass params to parent constructor

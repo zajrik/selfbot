@@ -27,9 +27,11 @@ class Version extends Command
 		{
 			this.bot.Say(message.author.username.cyan + " requested version.");
 
-			// Send version to channel
-			this.UpdateMessage(message,
-				`\`\`\`css\nCurrent version is: ${pkg.version}\n\`\`\``);
+			// Send version to channel and remove after 3 seconds
+			message.edit(`\`\`\`css\nCurrent version is: ${pkg.version}\n\`\`\``).then(message =>
+			{
+				message.delete(3 * 1000);
+			})
 		}
 
 		// Pass params to parent constructor
