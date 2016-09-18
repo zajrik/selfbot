@@ -10,7 +10,7 @@ class Help extends Command
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Provides the user with a list of commands and what they do";
+		let desc  = `Provides the user with a list of commands and what they do`;
 		let usage = `\n\t${settings.prefix}help\n\t${settings.prefix}help <command>`;
 		let help  = `${settings.prefix}help will list available commands.
 ${settings.prefix}help <command> will print the helptext for the given command.`;

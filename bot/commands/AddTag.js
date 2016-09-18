@@ -9,7 +9,7 @@ class AddTag extends Command
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Add a tag to the tags database";
+		let desc  = `Add a tag to the tags database`;
 		let usage = `${settings.prefix}addtag <tag key> <tag value>`;
 		let help  = `A tag can then be recalled via ${settings.prefix}tag <tag key>\nAll tags can be listed with ${settings.prefix}alltags`;
 

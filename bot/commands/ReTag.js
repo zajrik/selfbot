@@ -9,7 +9,7 @@ class ReTag extends Command
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Replace a tag value in the database";
+		let desc  = `Replace a tag value in the database`;
 		let usage = `${settings.prefix}retag <tag key> <tag value>`;
 		let help  = `A tag can then be recalled via ${settings.prefix}tag <tag key>\nAll tags can be listed with ${settings.prefix}alltags`;
 

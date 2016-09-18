@@ -9,9 +9,9 @@ class AllTags extends Command
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Print all available tags to the channel";
+		let desc  = `Print all available tags to the channel`;
 		let alias = "tags";
-		let usage = `\n\t${settings.prefix}alltags\n\t${settings.prefix}tags`;
+		let usage = `${settings.prefix}alltags`;
 		let help  = ``;
 
 		// Activation command regex

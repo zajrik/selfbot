@@ -27,6 +27,7 @@
 	Command_AllTags = require("./commands/AllTags");
 	Command_Tag     = require("./commands/Tag");
 	Command_Ping    = require("./commands/Ping");
+	Command_BotCmd  = require("./commands/BotCmd");
 	Command_Uptime  = require("./commands/Uptime");
 	Command_Version = require("./commands/Version");
 	Command_Restart = require("./commands/Restart");

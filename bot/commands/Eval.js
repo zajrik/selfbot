@@ -11,7 +11,7 @@ class Eval extends Command
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Evaluates the given code and prints the result";
+		let desc  = `Evaluates the given code and prints the result`;
 		let usage = `${settings.prefix}eval <code>`;
 		let help  = `The command does not require any code to be inline with the command itself. eg:
 

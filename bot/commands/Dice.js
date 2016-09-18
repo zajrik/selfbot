@@ -9,7 +9,7 @@ class Dice extends Command
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Roll a sided die a number of times";
+		let desc  = `Roll a sided die a number of times`;
 		let usage = `${settings.prefix}<quantity>d<sides> [quantity]`;
 		let help  = `Examples:\n\t${settings.prefix}5d20\n\t${settings.prefix}d20 5
 	${settings.prefix}d10

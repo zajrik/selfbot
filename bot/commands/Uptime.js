@@ -9,7 +9,7 @@ class Uptime extends Command
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Prints time since the bot was started";
+		let desc  = `Prints time since the bot was started`;
 		let usage = `${settings.prefix}uptime`;
 		let help  = ``;
 

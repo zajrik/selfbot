@@ -9,7 +9,7 @@ class Ping extends Command
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Ping!";
+		let desc  = `Ping!`;
 		let usage = `${settings.prefix}ping`;
 		let help  = `Bot will respond with "pong" and command execution time.`;
 

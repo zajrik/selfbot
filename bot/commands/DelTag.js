@@ -9,7 +9,7 @@ class DelTag extends Command
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Remove a tag from the tags database";
+		let desc  = `Remove a tag from the tags database`;
 		let usage = `${settings.prefix}deltag <tag key>`;
 		let help  = ``;
 

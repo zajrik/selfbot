@@ -9,7 +9,7 @@ class Tag extends Command
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Send a tag to the channel";
+		let desc  = `Send a tag to the channel`;
 		let usage = `${settings.prefix}tag <tag key>`;
 		let help  = `All tags can be listed with ${settings.prefix}alltags`;
 

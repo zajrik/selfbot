@@ -9,7 +9,7 @@ class Version extends Command
 	constructor()
 	{
 		// Helptext values
-		let desc  = "Prints the bot version";
+		let desc  = `Prints the bot version`;
 		let usage = `${settings.prefix}version`;
 		let help  = ``;
 
