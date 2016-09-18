@@ -52,7 +52,8 @@ will still output the value of x.`;
 			}
 			catch (error)
 			{
-				this.UpdateMessage(message, "**ERROR:** ```xl\n" + Clean(error) + "\n```");
+				this.UpdateMessage(message,
+					"**INPUT:**\n```js\n" + code + "\n```\n**ERROR:** ```xl\n" + Clean(error) + "\n```");
 			}
 		}
 
