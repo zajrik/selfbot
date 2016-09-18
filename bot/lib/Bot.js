@@ -40,6 +40,7 @@ class Bot extends Client
 		this.commands.Register(new Command_Ping());
 		this.commands.Register(new Command_Prune());
 		this.commands.Register(new Command_Todo());
+		this.commands.Register(new Command_SetPrefix());
 		this.commands.Register(new Command_BotCmd());
 		this.commands.Register(new Command_Uptime());
 		this.commands.Register(new Command_Version());

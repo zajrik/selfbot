@@ -18,21 +18,22 @@
 	CommandRegistry       = require("./lib/CommandRegistry");
 
 	// Commands
-	Command_Help    = require("./commands/Help");
-	Command_Eval    = require("./commands/Eval");
-	Command_Dice    = require("./commands/Dice");
-	Command_AddTag  = require("./commands/AddTag");
-	Command_DelTag  = require("./commands/DelTag");
-	Command_ReTag   = require("./commands/ReTag");
-	Command_AllTags = require("./commands/AllTags");
-	Command_Tag     = require("./commands/Tag");
-	Command_Ping    = require("./commands/Ping");
-	Command_Prune   = require("./commands/Prune");
-	Command_Todo    = require("./commands/Todo");
-	Command_BotCmd  = require("./commands/BotCmd");
-	Command_Uptime  = require("./commands/Uptime");
-	Command_Version = require("./commands/Version");
-	Command_Restart = require("./commands/Restart");
+	Command_Help      = require("./commands/Help");
+	Command_Eval      = require("./commands/Eval");
+	Command_Dice      = require("./commands/Dice");
+	Command_AddTag    = require("./commands/AddTag");
+	Command_DelTag    = require("./commands/DelTag");
+	Command_ReTag     = require("./commands/ReTag");
+	Command_AllTags   = require("./commands/AllTags");
+	Command_Tag       = require("./commands/Tag");
+	Command_Ping      = require("./commands/Ping");
+	Command_Prune     = require("./commands/Prune");
+	Command_Todo      = require("./commands/Todo");
+	Command_SetPrefix = require("./commands/SetPrefix");
+	Command_BotCmd    = require("./commands/BotCmd");
+	Command_Uptime    = require("./commands/Uptime");
+	Command_Version   = require("./commands/Version");
+	Command_Restart   = require("./commands/Restart");
 
 	// Tasks
 
