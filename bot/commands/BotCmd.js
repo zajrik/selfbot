@@ -16,7 +16,7 @@ class BotCmd extends Command
 		let help  = `Will send a command to my serverbot and post the output to the channel the ${settings.prefix}bot command is called from.`;
 
 		// Activation command regex
-		let command = /^(?:bot|botcmd)(?: ([a-z0-9]+))?(?: (.+))?$/;
+		let command = /^(?:bot|botcmd)(?: (\d{1,2}) )?(?: ?([a-z0-9]+))?(?: (.+))?$/;
 
 		/**
 		 * Action to take when the command is received
@@ -27,8 +27,9 @@ class BotCmd extends Command
 		 */
 		let action = (message, resolve, reject) =>
 		{
-			let botCmd = message.content.match(this.command)[1];
-			let botCmdArgs = message.content.match(this.command)[2];
+			let pruneTimer = message.content.match(this.command)[1] || 10;
+			let botCmd = message.content.match(this.command)[2];
+			let botCmdArgs = message.content.match(this.command)[3];
 
 			if (!botCmd)
 			{
@@ -46,8 +47,10 @@ class BotCmd extends Command
 			var botUser = this.bot.fetchUser("219977426036457483");
 			botUser.then(user =>
 			{
+				message.edit("_Waiting on bot response..._");
 				user.sendMessage(`/${botCmd}${botCmdArgs ? " " + botCmdArgs : ""}`).then(msg =>
 				{
+
 					// Register collector to get bot response message, 10 second timeout
 					let collector = msg.channel.createCollector(m => m.author.id == user.id,
 					{
@@ -56,11 +59,12 @@ class BotCmd extends Command
 
 					collector.on("message", (msg) =>
 					{
-						message.channel.sendMessage(msg.content).then(() =>
-						{
-							collector.stop("success");
-						});
+						collector.stop("success");
 						message.delete();
+						message.channel.sendMessage(msg.content).then(m =>
+						{
+							m.delete(pruneTimer * 1000);
+						});
 					});
 
 					collector.on("end", (collection, reason) =>
