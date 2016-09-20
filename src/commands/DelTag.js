@@ -8,13 +8,18 @@ class DelTag extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Remove a tag from the tags database`;
-		let usage = `${settings.prefix}deltag <tag key>`;
-		let help  = ``;
+		this.name         = `deltag`;
+		this.description  = `Remove a tag from the tags database`;
+		this.alias        = ``;
+		this.usage        = `${settings.prefix}deltag <tag key>`;
+		this.help         = ``;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^deltag ([a-zA-Z]+)$/;
+		this.command = /^deltag ([a-zA-Z]+)$/;
 
 		/**
 		 * Action to take when the command is received
@@ -23,7 +28,7 @@ class DelTag extends Command
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			let tagKey = message.content.match(this.command)[1] || undefined;
 
@@ -75,9 +80,6 @@ class DelTag extends Command
 
 			});
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help);
 	}
 }
 

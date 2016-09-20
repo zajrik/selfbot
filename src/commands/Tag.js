@@ -8,13 +8,18 @@ class Tag extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Send a tag to the channel`;
-		let usage = `${settings.prefix}tag <tag key>`;
-		let help  = `All tags can be listed with ${settings.prefix}alltags`;
+		this.name         = `tag`;
+		this.description  = `Send a tag to the channel`;
+		this.alias        = ``;
+		this.usage        = `${settings.prefix}tag <tag key>`;
+		this.help         = `All tags can be listed with ${settings.prefix}alltags`;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^tag ([a-zA-Z]+)$/;
+		this.command = /^tag ([a-zA-Z]+)$/;
 
 		/**
 		 * Action to take when the command is received
@@ -23,7 +28,7 @@ class Tag extends Command
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			let tagKey = message.content.match(this.command)[1] || undefined;
 
@@ -39,7 +44,6 @@ class Tag extends Command
 				this.bot.db.push("/tags", [], true);
 				var tags = this.bot.db.getData("/tags");
 			}
-
 
 			// Get tag value by key
 			let tag = "";
@@ -67,9 +71,6 @@ class Tag extends Command
 				return;
 			}
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help);
 	}
 }
 

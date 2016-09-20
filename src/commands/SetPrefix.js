@@ -8,14 +8,18 @@ class SetPrefix extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Set command prefix`;
-		let alias = `prefix`
-		let usage = `${settings.prefix}setprefix <char>`;
-		let help  = `It's recommended to reload the bot after changing the command prefix to update helptext with the new prefix.`;
+		this.name         = `setprefix`;
+		this.description  = `Set command prefix`;
+		this.alias        = `prefix`;
+		this.usage        = `${settings.prefix}setprefix <char>`;
+		this.help         = `After setting the command prefix, commands will automatically be reloaded.`;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^(?:setprefix|prefix)(?: (.{1}))?$/;
+		this.command = /^(?:setprefix|prefix)(?: (.{1}))?$/;
 
 		/**
 		 * Action to take when the command is received
@@ -24,16 +28,31 @@ class SetPrefix extends Command
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			let char = message.content.match(this.command)[1];
 
 			message.delete().then(_ =>
 			{
-				// Set prefix for current session and write
-				// updated settings to file
+				// Break if no prefix is provided
+				if (!char)
+				{
+					message.channel.sendCode("css", `You must provide a prefix to set.`)
+						.then(message =>
+						{
+							message.delete(3 * 1000);
+						});
+					return;
+				}
+
+				// Set prefix for current session, reload commands
+				// to reflect the changes
 				settings.prefix = char;
-				var fs = require('fs');
+
+				this.bot.Say("Set new prefix, reloading commands.".yellow);
+				this.bot.LoadCommands();
+
+				// Write updated settings to file
 				fs.writeFile("./settings.json", JSON.stringify(settings, null, "\t"), (err) =>
 				{
 					if (err) console.log(err);
@@ -47,9 +66,6 @@ class SetPrefix extends Command
 			});
 
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help, alias);
 	}
 }
 

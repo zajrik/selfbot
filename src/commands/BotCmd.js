@@ -9,14 +9,18 @@ class BotCmd extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Execute a serverbot command`;
-		let alias = `bot`;
-		let usage = `${settings.prefix}botcmd <command> [...args]`;
-		let help  = `Will send a command to my serverbot and post the output to the channel the ${settings.prefix}bot command is called from.`;
+		this.name         = `botcmd`;
+		this.description  = `Execute a serverbot command`;
+		this.alias        = `bot`;
+		this.usage        = `${settings.prefix}botcmd <command> [...args]`;
+		this.help         = `Will send a command to my serverbot and post the output to the channel the ${settings.prefix}bot command is called from.`;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^(?:bot|botcmd)(?: (\d{1,2}) )?(?: ?([a-z0-9]+))?(?: (.+))?$/;
+		this.command = /^(?:botcmd|bot)(?: (\d{1,2}) )?(?: ?([a-z0-9]+))?(?: (.+))?$/;
 
 		/**
 		 * Action to take when the command is received
@@ -25,7 +29,7 @@ class BotCmd extends Command
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			let pruneTimer = message.content.match(this.command)[1] || 10;
 			let botCmd = message.content.match(this.command)[2];
@@ -82,9 +86,6 @@ class BotCmd extends Command
 				})
 			})
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help, alias);
 	}
 }
 

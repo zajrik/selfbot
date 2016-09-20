@@ -1,6 +1,6 @@
 {
 	"name": "Selfbot",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "Give myself some extra commands I guess.",
 	"author": "Zackary Campbell <zajrik@gmail.com>",
 	"scripts": {

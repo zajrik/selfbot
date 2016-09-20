@@ -10,19 +10,24 @@ class Eval extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Evaluates the given code and prints the result`;
-		let usage = `${settings.prefix}eval <code>`;
-		let help  = `The command does not require any code to be inline with the command itself. eg:
+		this.name         = `eval`;
+		this.description  = `Evaluates the given code and prints the result`;
+		this.alias        = ``;
+		this.usage        = `${settings.prefix}eval <code>`;
+		this.help         = `The command does not require any code to be inline with the command itself. eg:
 
 	${settings.prefix}eval
 	let x = 5;
 	x;
 
 will still output the value of x.`;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^eval(?: *\n*((?:.|[\r\n])+))?$/;
+		this.command = /^eval(?: *\n*((?:.|[\r\n])+))?$/;
 
 		/**
 		 * Action to take when the command is received
@@ -31,12 +36,12 @@ will still output the value of x.`;
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			let code = message.content.match(this.command)[1];
 			if (!code)
 			{
-				this.UpdateMessage(message,
+				message.edit(
 					"**ERROR:** ```xl\nNo code provided to evaluate.\n```");
 				return;
 			}
@@ -47,12 +52,12 @@ will still output the value of x.`;
 				if (typeof evaled !== "string")
 					evaled = inspect(evaled, {depth: 0});
 
-				this.UpdateMessage(message,
+				message.edit(
 					"**INPUT:**\n```js\n" + code + "\n```\n**OUTPUT:**\n```xl\n" + Clean(evaled) + "\n```");
 			}
 			catch (error)
 			{
-				this.UpdateMessage(message,
+				message.edit(
 					"**INPUT:**\n```js\n" + code + "\n```\n**ERROR:** ```xl\n" + Clean(error) + "\n```");
 			}
 		}
@@ -69,9 +74,6 @@ will still output the value of x.`;
 			}
 		  	else return text;
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help);
 	}
 }
 

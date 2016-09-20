@@ -8,13 +8,18 @@ class Todo extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Add a TODO`;
-		let usage = `${settings.prefix}todo <text>`;
-		let help  = `Adds a TODO message to the TODO channel on my dev server`;
+		this.name         = `todo`;
+		this.description  = `Add a TODO`;
+		this.alias        = ``;
+		this.usage        = `${settings.prefix}todo <text>`;
+		this.help         = `Adds a TODO message to the TODO channel on my dev server`;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^todo(?: *\n*((?:.|[\r\n])+))?$/;
+		this.command = /^todo(?: *\n*((?:.|[\r\n])+))?$/;
 
 		/**
 		 * Action to take when the command is received
@@ -23,7 +28,7 @@ class Todo extends Command
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			let text = message.content.match(this.command)[1];
 
@@ -34,9 +39,6 @@ class Todo extends Command
 				`TODO: ${text}`);
 			});
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help);
 	}
 }
 

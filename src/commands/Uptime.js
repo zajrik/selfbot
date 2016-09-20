@@ -8,13 +8,18 @@ class Uptime extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Prints time since the bot was started`;
-		let usage = `${settings.prefix}uptime`;
-		let help  = ``;
+		this.name         = `uptime`;
+		this.description  = `Prints time since the bot was started`;
+		this.alias        = ``;
+		this.usage        = `${settings.prefix}uptime`;
+		this.help         = ``;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^uptime$/;
+		this.command = /^uptime$/;
 
 		/**
 		 * Action to take when the command is received
@@ -23,10 +28,8 @@ class Uptime extends Command
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
-			this.bot.Say(message.author.username.cyan + " requested uptime.");
-
 			// Use Time.Difference to convert uptime ms into something useable
 			let uptime = Time.Difference(this.bot.uptime * 2, this.bot.uptime);
 
@@ -36,9 +39,6 @@ class Uptime extends Command
 				message.delete(3 * 1000);
 			})
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help);
 	}
 }
 

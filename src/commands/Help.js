@@ -83,7 +83,7 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 							{
 								message.delete(20 * 1000);
 						});
-				}):
+				});
 			}
 		}
 	}

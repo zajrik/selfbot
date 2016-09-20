@@ -8,14 +8,18 @@ class AllTags extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Print all available tags to the channel`;
-		let alias = "tags";
-		let usage = `${settings.prefix}alltags`;
-		let help  = ``;
+		this.name         = `alltags`;
+		this.description  = `Print all available tags to the channel`;
+		this.alias        = `tags`;
+		this.usage        = `${settings.prefix}alltags`;
+		this.help         = ``;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^(?:alltags|tags)$/;
+		this.command = /^(?:alltags|tags)$/;
 
 		/**
 		 * Action to take when the command is received
@@ -24,7 +28,7 @@ class AllTags extends Command
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			try
 			{
@@ -72,9 +76,6 @@ class AllTags extends Command
 				});
 			});
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help, alias);
 	}
 }
 

@@ -1,25 +1,26 @@
 require("../Globals");
 
 /**
- * Command to have the bot print its current version to the chat
+ * Command to reload commands;
  * @extends {command}
  */
-class Version extends Command
+class Reload extends Command
 {
 	constructor()
 	{
 		super();
+		this.admin = true;
 
 		// Helptext values
-		this.name         = `version`;
-		this.description  = `Prints the bot version`;
+		this.name         = `reload`;
+		this.description  = `Reloads commands to incorporate changes`;
 		this.alias        = ``;
-		this.usage        = `${settings.prefix}version`;
+		this.usage        = `${settings.prefix}reload`;
 		this.help         = ``;
 		this.permsissions = [];
 
 		// Activation command regex
-		this.command = /^version$/;
+		this.command = /^reload$/;
 
 		/**
 		 * Action to take when the command is received
@@ -30,13 +31,16 @@ class Version extends Command
 		 */
 		this.action = (message, resolve, reject) =>
 		{
-			// Send version to channel and remove after 3 seconds
-			message.edit(`\`\`\`css\nCurrent version is: ${pkg.version}\n\`\`\``).then(message =>
-			{
-				message.delete(3 * 1000);
-			})
+			this.bot.Say("Reloading commands.".yellow);
+			let start = now();
+			this.bot.LoadCommands();
+			message.channel.sendCode("css", `Commands reloaded. (${(now() - start).toFixed(4)}ms)`)
+				.then(message =>
+				{
+					message.delete(3 * 1000);
+				});
 		}
 	}
 }
 
-module.exports = Version;
+module.exports = Reload;

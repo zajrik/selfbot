@@ -8,10 +8,14 @@ class Dice extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Roll a sided die a number of times`;
-		let usage = `${settings.prefix}<quantity>d<sides> [quantity]`;
-		let help  = `Examples:\n\t${settings.prefix}5d20\n\t${settings.prefix}d20 5
+		this.name         = `dice`;
+		this.description  = `Roll a sided die a number of times`;
+		this.alias        = ``;
+		this.usage        = `${settings.prefix}<quantity>d<sides> [quantity]`;
+		this.help         = `Examples:\n\t${settings.prefix}5d20\n\t${settings.prefix}d20 5
 	${settings.prefix}d10
 
 If a quantity is not specified, a single die will be rolled. Quantity can be given ` +
@@ -23,9 +27,10 @@ Valid die shapes are:
 	d4, d6, d8, d10, d10, d12, d20, d100
 
 The maximum number of dice that can be rolled at any one time is 100.`;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^(\d{1,3})?d(4|6|8|10|12|20|100)(?: (\d{1,2}))?$/;
+		this.command = /^(\d{1,3})?d(4|6|8|10|12|20|100)(?: (\d{1,2}))?$/;
 
 		/**
 		 * Action to take when the command is received
@@ -34,7 +39,7 @@ The maximum number of dice that can be rolled at any one time is 100.`;
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			let sides = message.content.match(this.command)[2];
 			let dice = message.content.match(this.command)[1] ||
@@ -74,14 +79,15 @@ The maximum number of dice that can be rolled at any one time is 100.`;
 
 				output += "\n```";
 
-				this.UpdateMessage(message, output);
+				// Send dice rolls to channel, auto-prune after 10 seconds
+				message.edit(output).then(message =>
+				{
+					message.delete(10 * 1000);
+				});
 			}
 
 			roll(sides, dice);
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help);
 	}
 }
 module.exports = Dice;

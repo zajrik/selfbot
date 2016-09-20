@@ -8,13 +8,18 @@ class Ping extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Ping!`;
-		let usage = `${settings.prefix}ping`;
-		let help  = `Bot will respond with "pong" and command execution time.`;
+		this.name         = `ping`;
+		this.description  = `Ping!`;
+		this.alias        = ``;
+		this.usage        = `${settings.prefix}ping`;
+		this.help         = `Bot will respond with "pong" and command execution time.`;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^[pP]ing$/;
+		this.command = /^[pP]ing$/;
 
 		/**
 		 * Action to take when the command is received
@@ -23,7 +28,7 @@ class Ping extends Command
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			// Add pong
 			message.edit("`Pong!`").then(message =>
@@ -36,9 +41,6 @@ class Ping extends Command
 					});
 			});
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help);
 	}
 }
 

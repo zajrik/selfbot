@@ -8,13 +8,18 @@ class ReTag extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Replace a tag value in the database`;
-		let usage = `${settings.prefix}retag <tag key> <tag value>`;
-		let help  = `A tag can then be recalled via ${settings.prefix}tag <tag key>\nAll tags can be listed with ${settings.prefix}alltags`;
+		this.name         = `retag`;
+		this.description  = `Replace a tag value in the database`;
+		this.alias        = ``;
+		this.usage        = `${settings.prefix}retag <tag key> <tag value>`;
+		this.help         = `A tag can then be recalled via ${settings.prefix}tag <tag key>\nAll tags can be listed with ${settings.prefix}alltags`;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^retag ([a-zA-Z]+) (.+)$/;
+		this.command = /^retag ([a-zA-Z]+) (.+)$/;
 
 		/**
 		 * Action to take when the command is received
@@ -23,7 +28,7 @@ class ReTag extends Command
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			let tagKey = message.content.match(this.command)[1] || undefined;
 			let tagVal = message.content.match(this.command)[2] || undefined;
@@ -77,9 +82,6 @@ class ReTag extends Command
 				}
 			});
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help);
 	}
 }
 

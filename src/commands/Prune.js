@@ -9,13 +9,18 @@ class Prune extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Remove the last given quantity of own messages`;
-		let usage = `${settings.prefix}prune <quantity>`;
-		let help  = ``;
+		this.name         = `prune`;
+		this.description  = `Remove the last given quantity of own messages`;
+		this.alias        = ``;
+		this.usage        = `${settings.prefix}prune <quantity>`;
+		this.help         = ``;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^prune (\d{1,2})$/;
+		this.command = /^prune (\d{1,2})$/;
 
 		/**
 		 * Action to take when the command is received
@@ -24,7 +29,7 @@ class Prune extends Command
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			let quantity = parseInt(message.content.match(this.command)[1]);
 			if (!quantity || quantity < 1)
@@ -51,9 +56,6 @@ class Prune extends Command
 				msgArray.map(m => m.delete().catch(console.error));
 			});
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help);
 	}
 }
 

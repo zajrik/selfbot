@@ -8,14 +8,18 @@ class Restart extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Restarts the selfbot`;
-		let alias = `Reboot`;
-		let usage = `${settings.prefix}restart`;
-		let help  = ``;
+		this.name         = `restart`;
+		this.description  = `Restarts the selfbot`;
+		this.alias        = `reboot`;
+		this.usage        = `${settings.prefix}restart`;
+		this.help         = ``;
+		this.permsissions = [];
 
 		// Activation command regex
-		let command = /^(?:restart|reboot)$/;
+		this.command = /^(?:restart|reboot)$/;
 
 		/**
 		 * Action to take when the command is received
@@ -24,7 +28,7 @@ class Restart extends Command
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			this.bot.Say("Restarting...".yellow);
 
@@ -40,9 +44,6 @@ class Restart extends Command
 				setTimeout(() => { process.exit() }, 100);
 			});
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help, alias);
 	}
 }
 
