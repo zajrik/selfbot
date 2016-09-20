@@ -53,7 +53,7 @@ class Bot extends Client
 		// Ready event
 		this.on("ready", () =>
 		{
-			// Edit last message with restart success if coming online from
+			// Send restart success message if coming online from
 			// a restart via restart command
 			try
 			{
@@ -78,12 +78,10 @@ class Bot extends Client
 				// Send restart complete message to channel
 				var channel = this.channels.find("id", restartID);
 				channel.sendCode("css", `Selfbot restart completed. (${(Time.now() - restartTime) / 1000} secs)`)
-					.then(msg =>
+					.then(message =>
 					{
 						// Remove the message after 3 seconds
-						setTimeout(() =>{
-							msg.delete();
-						}, 3000);
+						message.delete(3 * 1000);
 					});
 			}
 
