@@ -36,10 +36,12 @@ class Prune extends Command
 			{
 				message.delete().then(message =>
 				{
-					message.channel.sendCode("css", `You must enter a number of messages to prune.`).then(message =>
-					{
-						message.delete(3 * 1000);
-					});
+					message.channel.sendCode("css",
+						`You must enter a number of messages to prune.`)
+							.then(message =>
+							{
+								message.delete(3 * 1000);
+							});
 				});
 				return;
 			}
@@ -50,10 +52,9 @@ class Prune extends Command
 			}).then(messages =>
 			{
 				let msgArray = messages.array();
-				msgArray = msgArray.filter(
-					m => m.author.id === this.bot.user.id);
+				msgArray = msgArray.filter(m => m.author.id === this.bot.user.id);
 				msgArray.length = quantity + 1;
-				msgArray.map(m => m.delete().catch(console.error));
+				msgArray.forEach(m => m.delete().catch(console.error));
 			});
 		}
 	}
