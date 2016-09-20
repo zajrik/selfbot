@@ -31,6 +31,7 @@ class Reload extends Command
 		 */
 		this.action = (message, resolve, reject) =>
 		{
+			message.delete();
 			this.bot.Say("Reloading commands.".yellow);
 			let start = now();
 			this.bot.LoadCommands();

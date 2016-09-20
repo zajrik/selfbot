@@ -54,7 +54,20 @@ class Prune extends Command
 				let msgArray = messages.array();
 				msgArray = msgArray.filter(m => m.author.id === this.bot.user.id);
 				msgArray.length = quantity + 1;
-				msgArray.forEach(m => m.delete().catch(console.error));
+				msgArray.forEach( (m, i) =>
+				{
+					m.delete().then(() =>
+					{
+						if (i == msgArray.length - 1)
+							message.channel.sendCode("css",
+								"Prune operation complete.")
+									.then(message =>
+										{
+											message.delete(3 * 1000);
+										});
+					}).catch(console.error);
+
+				});
 			});
 		}
 	}
