@@ -9,14 +9,19 @@ class Help extends Command
 {
 	constructor()
 	{
+		super();
+
 		// Helptext values
-		let desc  = `Provides the user with a list of commands and what they do`;
-		let usage = `\n\t${settings.prefix}help\n\t${settings.prefix}help <command>`;
-		let help  = `${settings.prefix}help will list available commands.
+		this.name        = `help`;
+		this.description = `Provides the user with a list of commands and what they do`;
+		this.alias       = ``;
+		this.usage       = `\n\t${settings.prefix}help\n\t${settings.prefix}help <command>`;
+		this.help        = `${settings.prefix}help will list available commands.
 ${settings.prefix}help <command> will print the helptext for the given command.`;
+		this.permissions = [];
 
 		// Activation command regex
-		let command = /^help(?: (.+))?$/;
+		this.command = /^help(?: (.+))?$/;
 
 		/**
 		 * Action to take when the command is received
@@ -25,7 +30,7 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 		 * @param  {method} reject reject method of parent Promise
 		 * @returns {null}
 		 */
-		let action = (message, resolve, reject) =>
+		this.action = (message, resolve, reject) =>
 		{
 			let command = message.content.match(this.command)[1];
 
@@ -48,9 +53,10 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 				commands.forEach( (key) =>
 				{
 					let cmd = this.bot.commands.info[key];
-					helptext += `${Pad(key, maxWidth + 1)}: ${cmd.desc}\n`;
+					if (!cmd.admin)
+						helptext += `${Pad(key, maxWidth + 1)}: ${cmd.description}\n`;
 				});
-				helptext += "\n```"
+				helptext += `\nUse "${settings.prefix}help <command>" for more command information.` + "\n```"
 
 				// Send helptext, delete after 20 secs
 				message.delete().then(message =>
@@ -69,19 +75,17 @@ ${settings.prefix}help <command> will print the helptext for the given command.`
 				message.delete().then(message =>
 				{
 					message.channel.sendMessage(
-						`\`\`\`xl\nDescription: ${cmd.desc}` +
-						`${cmd.alias ? "\nAlias: " + cmd.alias : ""}\n` +
-						`Usage: ${cmd.usage}\n\n${cmd.help}\n\`\`\``)
+						`\`\`\`xl\nDescription: ${cmd.description}` +
+						`${cmd.permissions.length > 0 ? "\nPermissions: " + cmd.permissions.join(", ") : ""}` +
+						`${cmd.alias ? "\nAlias: " + cmd.alias : ""}` +
+						`\nUsage: ${cmd.usage}\n\n${cmd.help}\n\`\`\``)
 							.then(message =>
 							{
 								message.delete(20 * 1000);
-							});
-				});
+						});
+				}):
 			}
 		}
-
-		// Pass params to parent constructor
-		super(command, action, desc, usage, help);
 	}
 }
 

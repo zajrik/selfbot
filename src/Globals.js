@@ -17,33 +17,21 @@
 	Command               = require("./lib/Command");
 	CommandRegistry       = require("./lib/CommandRegistry");
 
-	// Commands
-	Command_Help      = require("./commands/Help");
-	Command_Eval      = require("./commands/Eval");
-	Command_Dice      = require("./commands/Dice");
-	Command_AddTag    = require("./commands/AddTag");
-	Command_DelTag    = require("./commands/DelTag");
-	Command_ReTag     = require("./commands/ReTag");
-	Command_AllTags   = require("./commands/AllTags");
-	Command_Tag       = require("./commands/Tag");
-	Command_Ping      = require("./commands/Ping");
-	Command_Prune     = require("./commands/Prune");
-	Command_Todo      = require("./commands/Todo");
-	Command_SetPrefix = require("./commands/SetPrefix");
-	Command_BotCmd    = require("./commands/BotCmd");
-	Command_Uptime    = require("./commands/Uptime");
-	Command_Version   = require("./commands/Version");
-	Command_Restart   = require("./commands/Restart");
-
 	// Tasks
 
 	// Static classes
 	Time        = require("./lib/Time");
 
-	// Node Modules
-	JsonDB    = require("../node_modules/node-json-db");
-	colors    = require("../node_modules/colors");
-	inspect   = require("../node_modules/util").inspect;
+	// Dependency Node Modules
+	JsonDB = require("../node_modules/node-json-db");
+	colors = require("../node_modules/colors");
+	now    = require("../node_modules/performance-now");
+
+	// Native Node Modules
+	assert  = require("assert");
+	inspect = require("util").inspect;
+	fs      = require("fs");
+	path    = require("path");
 
 
 // End class imports ///////////////////////////////////////////////////////////

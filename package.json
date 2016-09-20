@@ -12,7 +12,7 @@
 		"discord.js": "9.2.0",
 		"node-json-db": "*",
 		"colors": "*",
-		"util": "*"
+		"performance-now": "*"
 	},
 	"private": true
 }

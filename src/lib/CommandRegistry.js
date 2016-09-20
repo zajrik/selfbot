@@ -4,16 +4,16 @@
  * for what is being done when initializing commands.
  * @extends {Array}
  */
-class CommandRegistry extends Array
+class CommandRegistry
 {
 	/**
 	 * @param {Bot} bot Discord.js client instance
 	 */
 	constructor(bot)
 	{
-		super();
-		this.info = {};
-		this.bot = bot;
+		this.bot      = bot;
+		this.info     = {};
+		this.commands = [];
 
 		this.bot.on("message", (message) =>
 		{
@@ -31,13 +31,41 @@ class CommandRegistry extends Array
 			if (command == "ping") this.bot.pinged = Time.now();
 
 			// Check for command matches and execute the
-			// appropriate command action
-			this.forEach( (item) =>
+			// appropriate command if the user has valid
+			// permissions
+			this.commands.forEach( (item) =>
 			{
 				if (item instanceof Command)
 				{
 					if (command.match(item.command))
 					{
+						// Check permissions
+						if (item.permissions.length > 0)
+						{
+							let missingPermissions = new Array();
+							item.permissions.forEach( (permission) =>
+							{
+								if (!message.channel.permissionsFor(message.author).hasPermission(permission))
+									missingPermissions.push(permission);
+							});
+
+							// Missing permissions, break
+							if (missingPermissions.length > 0)
+							{
+								message.channel.sendMessage(
+									`**You're missing the following permission` +
+									`${missingPermissions.length > 1 ? "s" : ""} ` +
+									`for that command:**\n\`\`\`css\n` +
+									`${missingPermissions.join(", ")}\n\`\`\``)
+										.then(message =>
+										{
+											message.delete(5 * 1000);
+										});
+								return;
+							}
+						}
+
+						// Execute command action
 						item.DoAction(message).then( (result) =>
 						{
 							this.bot.Say(result);
@@ -56,18 +84,21 @@ class CommandRegistry extends Array
 	 * command to parent Array, and push command helptext
 	 * fields to the info array for helpdocs
 	 * @param {Command} command Command to be registered
+	 * @param {number} index    The command registry index to place the command
 	 * @returns {null}
 	 */
-	Register(command)
+	Register(command, index)
 	{
 		command.Register(this.bot);
-		this.push(command);
-		this.info[command.constructor.name.toLowerCase()] =
+		this.commands[index] = command;
+		this.info[command.name] =
 		{
-			desc: command.desc,
+			description: command.description,
 			usage: command.usage,
 			help: command.help,
-			alias: command.alias
+			alias: command.alias,
+			permissions: command.permissions,
+			admin: command.admin || false
 		}
 	}
 }

@@ -19,32 +19,17 @@ class Bot extends Client
 		this.name = name;
 		this.token = token;
 
-		// Create bot command registry
+		// Create command registry for the bot
 		this.commands = new CommandRegistry(this);
+
+		// Load commands
+		this.LoadCommands();
 
 		// Create an action scheduler for the bot
 		this.scheduler = new Scheduler(this);
 
 		// Initialize a database for the bot
 		this.db = new JsonDB("data-store", true, true);
-
-		// Register commands
-		this.commands.Register(new Command_Help());
-		this.commands.Register(new Command_Eval());
-		this.commands.Register(new Command_Dice());
-		this.commands.Register(new Command_AddTag());
-		this.commands.Register(new Command_DelTag());
-		this.commands.Register(new Command_ReTag());
-		this.commands.Register(new Command_AllTags());
-		this.commands.Register(new Command_Tag());
-		this.commands.Register(new Command_Ping());
-		this.commands.Register(new Command_Prune());
-		this.commands.Register(new Command_Todo());
-		this.commands.Register(new Command_SetPrefix());
-		this.commands.Register(new Command_BotCmd());
-		this.commands.Register(new Command_Uptime());
-		this.commands.Register(new Command_Version());
-		this.commands.Register(new Command_Restart());
 
 		// Schedule tasks
 
@@ -85,7 +70,7 @@ class Bot extends Client
 					});
 			}
 
-			this.user.setStatus("online", "with my selfbot")
+			this.user.setStatus(null, settings.status)
 				.then(user => this.Say(
 					`Status set to: ${user.status}, ${user.game.name}`))
 				.catch(this.Say);
@@ -130,6 +115,44 @@ class Bot extends Client
 		{
 		    this.Say(e.error);
 		});
+	}
+
+	/**
+	 * Load and register all commands. Can be called
+	 * again to reload commands
+	 * @returns {null}
+	 */
+	LoadCommands()
+	{
+		let start = now();
+		let cmds = new Array();
+		let files;
+
+		try
+		{
+			files = fs.readdirSync("./src/commands");
+		}
+		catch (e)
+		{
+			throw new Error("Failed to load Commands.");
+		}
+
+		// Load each command
+		files.forEach( (filename, index) =>
+		{
+			let command = filename.replace(/.js/, "");
+			delete require.cache[require.resolve(`../commands/${command}`)];
+			cmds[index] = require(`../commands/${command}`);
+			this.Say(`Command ${command} loaded.`.green);
+		});
+
+		// Register each command
+		cmds.forEach( (command, index) =>
+		{
+			this.commands.Register(new command(), index);
+		});
+
+		this.Say(`Commands loaded and registered! (${(now() - start).toFixed(4)}ms)`);
 	}
 
 	/**
