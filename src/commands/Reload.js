@@ -1,4 +1,4 @@
-require("../Globals");
+require(Globals);
 
 /**
  * Command to reload commands;
@@ -31,15 +31,16 @@ class Reload extends Command
 		 */
 		this.action = (message, resolve, reject) =>
 		{
-			message.delete();
 			this.bot.Say("Reloading commands.".yellow);
 			let start = now();
-			this.bot.LoadCommands();
-			message.channel.sendCode("css", `Commands reloaded. (${(now() - start).toFixed(4)}ms)`)
-				.then(message =>
-				{
-					message.delete(3 * 1000);
-				});
+			this.bot.LoadCommands( () =>
+			{
+				message.channel.sendCode("css", `Commands reloaded. (${(now() - start).toFixed(4)}ms)`)
+					.then(message =>
+					{
+						message.delete(3 * 1000);
+					});
+			});
 		}
 	}
 }

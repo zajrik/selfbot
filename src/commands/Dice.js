@@ -1,4 +1,4 @@
-require("../Globals");
+require(Globals);
 
 /**
  * A command to roll a variable sided die a variable number of times

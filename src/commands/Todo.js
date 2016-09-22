@@ -1,4 +1,4 @@
-require("../Globals");
+require(Globals);
 
 /**
  * Command to add a todo message to the todo channel on my dev server
@@ -32,7 +32,7 @@ class Todo extends Command
 		{
 			let text = message.content.match(this.command)[1];
 
-			message.delete().then(_ =>
+			message.delete().then( () =>
 			{
 				// Add todo to todos channel on dev server
 				this.bot.channels.get(settings.todochannel).sendCode("css",

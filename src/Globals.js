@@ -12,17 +12,18 @@
 	Bot    = require("./lib/Bot");
 
 	// My lib classes
-	ScheduledTask         = require("./lib/ScheduledTask");
-	Scheduler             = require("./lib/Scheduler");
-	Command               = require("./lib/Command");
-	CommandRegistry       = require("./lib/CommandRegistry");
+	ScheduledTask   = require("./lib/ScheduledTask");
+	Scheduler       = require("./lib/Scheduler");
+	Command         = require("./lib/Command");
+	CommandRegistry = require("./lib/CommandRegistry");
 
 	// Tasks
 
 	// Static classes
-	Time        = require("./lib/Time");
+	Time = require("./lib/Time");
 
 	// Dependency Node Modules
+	glob   = require("../node_modules/glob");
 	JsonDB = require("../node_modules/node-json-db");
 	colors = require("../node_modules/colors");
 	now    = require("../node_modules/performance-now");

@@ -1,25 +1,25 @@
-require("../Globals");
+require(Globals);
 
 /**
- * Command to replace a tag in the DB with a new value
+ * Command to add a tag to the tag DB entry
  * @extends {command}
  */
-class ReTag extends Command
+class AddTag extends Command
 {
 	constructor()
 	{
 		super();
 
 		// Helptext values
-		this.name         = `retag`;
-		this.description  = `Replace a tag value in the database`;
+		this.name         = `addtag`;
+		this.description  = `Add a tag to the tags database`;
 		this.alias        = ``;
-		this.usage        = `${settings.prefix}retag <tag key> <tag value>`;
+		this.usage        = `${settings.prefix}addtag <tag key> <tag value>`;
 		this.help         = `A tag can then be recalled via ${settings.prefix}tag <tag key>\nAll tags can be listed with ${settings.prefix}alltags`;
 		this.permsissions = [];
 
 		// Activation command regex
-		this.command = /^retag ([a-zA-Z]+) (.+)$/;
+		this.command = /^addtag ([a-zA-Z]+)(?: *\n*((?:.|[\r\n])+))$/;
 
 		/**
 		 * Action to take when the command is received
@@ -46,25 +46,18 @@ class ReTag extends Command
 				var tags = this.bot.db.getData("/tags");
 			}
 
+			// Add the tag to the db, notify user and delete the message
 			message.delete().then(message =>
 			{
-				// Find tag in DB
-				let foundTag = false;
-				tags.forEach( (value, index) =>
+				// Check if tag already exists
+				var foundTag = false;
+				tags.forEach(value =>
 				{
 					if (value[0] == tagKey)
 					{
+						// Notify user that tag exists already
 						foundTag = true;
-						tags.splice(index, 1);
-
-						// Re-add tag with new value
-						tags.push([tagKey, tagVal]);
-
-						this.bot.db.delete("/tags");
-						this.bot.db.push("/tags", tags);
-
-						// Notify user of tag update
-						message.channel.sendCode("css", `Tag "${tagKey}" has been updated.`).then(message =>
+						message.channel.sendCode("css", `Tag "${tagKey}" already exists.`).then(message =>
 						{
 							message.delete(3 * 1000);
 						});
@@ -74,8 +67,9 @@ class ReTag extends Command
 
 				if (!foundTag)
 				{
-					// Notify user of nonexistant tag
-					message.channel.sendCode("css", `Tag "${tagKey}" does not exist.`).then(message =>
+					// Notify user of added tag
+					this.bot.db.push("/tags[]", [tagKey, tagVal], true);
+					message.channel.sendCode("css", `Tag "${tagKey}" added.`).then(message =>
 					{
 						message.delete(3 * 1000);
 					});
@@ -85,4 +79,4 @@ class ReTag extends Command
 	}
 }
 
-module.exports = ReTag;
+module.exports = AddTag;

@@ -1,4 +1,4 @@
-require("../Globals");
+require(Globals);
 
 /**
  * Has server warframe bot execute a command and posts its

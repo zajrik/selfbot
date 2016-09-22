@@ -1,4 +1,4 @@
-require("../Globals");
+require(Globals);
 
 /**
  * Ping command, responds with "pong" and execution time
