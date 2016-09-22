@@ -35,7 +35,7 @@ class Reload extends Command
 			let start = now();
 			this.bot.LoadCommands( () =>
 			{
-				message.channel.sendCode("css", `Commands reloaded. (${(now() - start).toFixed(4)}ms)`)
+				message.channel.sendCode("css", `Commands reloaded. (${(now() - start).toFixed(3)}ms)`)
 					.then(message =>
 					{
 						message.delete(3 * 1000);
