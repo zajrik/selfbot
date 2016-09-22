@@ -33,6 +33,10 @@ class DisableModule extends Command
 		this.action = (message, resolve, reject) =>
 		{
 			let cmdModule = message.content.match(this.command)[1];
+
+			// Remove command message
+			message.delete();
+
 			if (!cmdModule)
 			{
 				message.channel.sendCode("css", "You must provide a module to disable.")
@@ -89,6 +93,7 @@ class DisableModule extends Command
 				.then(message => { message.delete(3 * 1000) });
 
 			// Reload commands
+			this.bot.Say("Reloading commands.".yellow);
 			this.bot.LoadCommands();
 		}
 	}

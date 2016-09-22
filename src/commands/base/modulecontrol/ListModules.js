@@ -33,6 +33,9 @@ class ListModules extends Command
 		{
 			let modules = GetDirs("./src/commands/");
 
+			// Remove command message
+			message.delete();
+
 			try
 			{
 				var disabledModules = this.bot.db.getData("/disabledModules");

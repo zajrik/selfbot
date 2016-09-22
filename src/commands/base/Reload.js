@@ -33,6 +33,11 @@ class Reload extends Command
 		{
 			this.bot.Say("Reloading commands.".yellow);
 			let start = now();
+
+			// Remove command message
+			message.delete();
+
+			// Reload commands and notify the user when complete
 			this.bot.LoadCommands( () =>
 			{
 				message.channel.sendCode("css", `Commands reloaded. (${(now() - start).toFixed(3)}ms)`)
