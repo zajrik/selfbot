@@ -13,13 +13,13 @@ class Tag extends Command
 		// Helptext values
 		this.name         = `tag`;
 		this.description  = `Send a tag to the channel`;
-		this.alias        = ``;
+		this.alias        = `t`;
 		this.usage        = `${settings.prefix}tag <tag key>`;
 		this.help         = `All tags can be listed with ${settings.prefix}alltags`;
 		this.permsissions = [];
 
 		// Activation command regex
-		this.command = /^tag ([a-zA-Z]+)$/;
+		this.command = /^(?:t|tag) ([a-zA-Z]+)$/;
 
 		/**
 		 * Action to take when the command is received
