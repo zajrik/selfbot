@@ -67,7 +67,8 @@ class BotCmd extends Command
 						message.delete();
 						message.channel.sendMessage(msg.content).then(m =>
 						{
-							m.delete(pruneTimer * 1000);
+							if (pruneTimer != 0)
+								m.delete(pruneTimer * 1000);
 						});
 					});
 
