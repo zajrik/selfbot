@@ -1,19 +1,36 @@
 {
-	"name": "Selfbot",
-	"version": "1.2.0",
-	"description": "Give myself some extra commands I guess.",
-	"author": "Zackary Campbell <zajrik@gmail.com>",
-	"scripts": {
-		"main": "node bot/main",
-		"update": "git pull"
-	},
-	"main": "bot/main.js",
-	"dependencies": {
-		"discord.js": "9.2.0",
-		"node-json-db": "*",
-		"colors": "*",
-		"performance-now": "*",
-		"glob": "*"
-	},
-	"private": true
+  "name": "selfbot",
+  "version": "2.0.0",
+  "description": "The selfbot I use on Discord",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zajrik/selfbot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "yamdbf",
+    "node",
+    "selfbot"
+  ],
+  "author": "Zackary Campbell <zajrik@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zajrik/selfbot/issues"
+  },
+  "homepage": "https://github.com/zajrik/selfbot#readme",
+  "dependencies": {
+    "yamdbf": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.46",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.1.0",
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.6"
+  }
 }
