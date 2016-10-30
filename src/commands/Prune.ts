@@ -29,6 +29,6 @@ export default class Prune extends Command
 		const toDelete: string[] = messages.keyArray().slice(0, quantity);
 		for (let key of toDelete) { await messages.get(key).delete(); }
 		return message.channel.sendMessage('Prune operation completed.')
-				.then(res => (<Message> res).delete(5000));
+			.then(res => (<Message> res).delete(5000));
 	}
 };

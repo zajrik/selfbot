@@ -1,14 +1,18 @@
+type Difference = {
+	ms?: number;
+	days?: number;
+	hours?: number;
+	mins?: number;
+	secs?: number;
+	toString(): string;
+	toSimplifiedString?(): string;
+}
+
 /**
  * Extend the Date class to provide helper methods
  */
-
 export default class Time extends Date
 {
-	constructor()
-	{
-		super();
-	}
-
 	/**
 	 * Return an object containing the time difference between a and be
 	 * @param {int} a Time in milliseconds
@@ -17,20 +21,11 @@ export default class Time extends Date
 	 *                  Also exposes two methods, toString and
 	 *                  toSimplifiedString for the object
 	 */
-	public static difference(a: number, b: number): any
+	public static difference(a: number, b: number): Difference
 	{
-		type Difference = {
-			ms?: number;
-			days?: number;
-			hours?: number;
-			mins?: number;
-			secs?: number;
-			toString?(): string;
-			toSimplifiedString?(): string;
-		}
-
 		let difference: Difference = {};
 		let ms: number = a - b;
+		difference.ms = ms;
 
 		// Calculate and separate days, hours, mins, and secs
 		let days: number = Math.floor(ms / 1000 / 60 / 60 / 24);
@@ -55,5 +50,10 @@ export default class Time extends Date
 			timeString.replace(/ours|ins|ecs| /g, '').replace(/,/g, ' ');
 
 		return difference;
+	}
+
+	public constructor()
+	{
+		super();
 	}
 }

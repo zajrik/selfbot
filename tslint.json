@@ -1,6 +1,5 @@
 {
 	"rules": {
-		"adjacent-overload-signatures": true,
 		"no-inferrable-types": false,
 		"no-unused-expression": true,
 		"no-duplicate-variable": true,
