@@ -28,7 +28,7 @@ export default class Bash extends Command
 		if (args.includes('rm') || args.includes('sudo') || args.includes('su'))
 			return message.channel.sendMessage(`Forbidden.`)
 				.then(res => (<Message> res).delete(5000));
-		let execution: Message = await message.channel.sendMessage(`_Executing..._`)
+		let execution: Message = <Message> await message.channel.sendMessage(`_Executing..._`);
 		return execution.editCode('', execSync(args.join(' '), { cwd: '../', timeout: 5000 }).toString());
 	}
 };
