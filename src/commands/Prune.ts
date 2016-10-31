@@ -11,7 +11,7 @@ export default class Prune extends Command
 			aliases: [],
 			description: 'Remove the last given quantity of own messages',
 			usage: '<prefix>prune <quantity>',
-			extraHelp: '',
+			extraHelp: 'Can delete up to 100 messages per command call',
 			group: 'base'
 		});
 	}
