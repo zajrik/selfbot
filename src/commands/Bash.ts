@@ -1,6 +1,6 @@
 'use strict';
 import { Command } from 'yamdbf';
-import { User, Message, TextChannel } from 'discord.js';
+import { User, Message } from 'discord.js';
 import { execSync } from 'child_process';
 
 export default class Bash extends Command
