@@ -18,7 +18,6 @@ export default class Prune extends Command
 
 	public async action(message: Message, args: Array<string | number>, mentions: User[], original: string): Promise<any>
 	{
-		message.delete();
 		const quantity: number = <number> args[0];
 		if (!quantity || quantity < 1)
 			return message.channel.sendMessage('You must enter a number of messages to prune')
@@ -26,9 +25,11 @@ export default class Prune extends Command
 		let messages: Collection<string, Message>;
 		messages = (await message.channel.fetchMessages({ limit: 100 }))
 			.filter((a: Message) => a.author.id === this.bot.user.id);
-		const toDelete: string[] = messages.keyArray().slice(0, quantity);
+		const toDelete: string[] = messages.keyArray().slice(0, quantity + 1);
+		const pruning: Message = <Message> await message.channel.sendMessage('Prune operation in progress...');
 		for (let key of toDelete) { await messages.get(key).delete(); }
-		return message.channel.sendMessage('Prune operation completed.')
+		return pruning.delete()
+			.then(() => message.channel.sendMessage('Prune operation completed.'))
 			.then(res => (<Message> res).delete(5000));
 	}
 };
