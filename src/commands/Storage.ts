@@ -12,7 +12,7 @@ export default class Storage extends Command
 			aliases: [],
 			description: 'Get/set/remove a value in storage',
 			usage: '<prefix>storage <get|set|rem> <key> [value]',
-			extraHelp: '',
+			extraHelp: 'Strings must be quoted! Single or double-quote is fine. Treat the value you are setting as if it were a real Javascript value.',
 			group: 'tag',
 			argOpts: { stringArgs: true },
 			ownerOnly: true
@@ -32,7 +32,7 @@ export default class Storage extends Command
 				return message.channel.sendCode('js', inspect(this.bot.storage.getItem(<string> args[1])));
 
 			case 'set':
-				this.bot.storage.setItem(<string> args[1], args.slice(2).join(' '));
+				this.bot.storage.setItem(<string> args[1], JSON.parse(args.slice(2).join(' ').replace(/'/g, '"')));
 				return message.channel.sendMessage(
 					`Set item "${args[1]}": ${args.slice(2).join(' ')}`)
 					.then(res => (<Message> res).delete(5000));

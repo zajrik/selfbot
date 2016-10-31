@@ -1,8 +1,10 @@
 var gulp = require('gulp');
 var ts = require('gulp-typescript');
+var del = require('del');
 
 gulp.task('default', () =>
 {
+	del.sync(['./bin/**/*.*']);
 	gulp.src('./src/**/*.ts')
 		.pipe(ts({
 			noImplicitAny: true,
