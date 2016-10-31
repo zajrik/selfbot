@@ -22,9 +22,9 @@ export default class Warframe extends Command
 		const wfBot: User = this.bot.users.get('219977426036457483');
 		const prune: number = <number> (!isNaN(<number> args[0]) ? args[0] : null);
 		const command: string = <string> (prune ? args[1] : args[0]);
-		const cmdargs: string = <string> (prune ? args.slice(2) : args.slice(1)).join(' ') || null;
-		const cmdmsg: Message = <Message> await wfBot.sendMessage(`/${command} ${cmdargs ? cmdargs : ''}`);
-		const response: Collection<string, Message> = await cmdmsg.channel
+		const cmdArgs: string = <string> (prune ? args.slice(2) : args.slice(1)).join(' ') || null;
+		const cmdMsg: Message = <Message> await wfBot.sendMessage(`/${command} ${cmdArgs ? cmdArgs : ''}`);
+		const response: Collection<string, Message> = await cmdMsg.channel
 			.awaitMessages(a => a.author.id === wfBot.id, { max: 1, time: 10000 });
 		if (!response.first()) return message.edit('Warframe bot response timed out.')
 			.then(res => (<Message> res).delete(5000));
