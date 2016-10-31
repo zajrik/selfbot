@@ -10,7 +10,7 @@ export default class Prune extends Command
 			name: 'prune',
 			aliases: [],
 			description: 'Remove the last given quantity of own messages',
-			usage: '<prefix>prune',
+			usage: '<prefix>prune <quantity>',
 			extraHelp: '',
 			group: 'base'
 		});
