@@ -14,7 +14,7 @@ export default class Bash extends Command
 			usage: '<prefix>$ <command> [...args]',
 			extraHelp: '',
 			group: 'system',
-			stringArgs: true,
+			argOpts: { stringArgs: true },
 			ownerOnly: true
 		});
 	}
@@ -23,12 +23,23 @@ export default class Bash extends Command
 	{
 		message.delete();
 		if (!args[0])
-			return message.channel.sendMessage(`You must provide a command to execute.`)
+			return message.channel.sendMessage('You must provide a command to execute.')
 				.then(res => (<Message> res).delete(5000));
 		if (args.includes('rm') || args.includes('sudo') || args.includes('su'))
-			return message.channel.sendMessage(`Forbidden.`)
+			return message.channel.sendMessage('Forbidden.')
 				.then(res => (<Message> res).delete(5000));
-		let execution: Message = <Message> await message.channel.sendMessage(`_Executing..._`);
-		return execution.editCode('', execSync(args.join(' '), { cwd: '../', timeout: 5000 }).toString());
+		const execution: Message = <Message> await message.channel.sendMessage('_Executing..._');
+		let result: string;
+		try
+		{
+			result = execSync(args.join(' '), { cwd: '../', timeout: 5000 }).toString();
+		}
+		catch (err)
+		{
+			result = err;
+		}
+		const output: string = `**INPUT:**\n\`\`\`bash\n$ ${args.join(' ')}\n\`\`\`\n`
+			+ `**OUTPUT:**\n\`\`\`ts\n${result}\n\`\`\``;
+		return execution.delete().then(() => message.channel.sendMessage(output, { split: true }));
 	}
 };

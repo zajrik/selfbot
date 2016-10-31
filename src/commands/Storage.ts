@@ -14,7 +14,7 @@ export default class Storage extends Command
 			usage: '<prefix>storage <get|set|rem> <key> [value]',
 			extraHelp: '',
 			group: 'tag',
-			stringArgs: true,
+			argOpts: { stringArgs: true },
 			ownerOnly: true
 		});
 	}
