@@ -1,11 +1,11 @@
 'use strict';
-import { Command } from 'yamdbf';
+import { Bot, Command } from 'yamdbf';
 import { User, Message } from 'discord.js';
 import { inspect } from 'util';
 
 export default class Storage extends Command
 {
-	public constructor(bot)
+	public constructor(bot: Bot)
 	{
 		super(bot, {
 			name: 'storage',

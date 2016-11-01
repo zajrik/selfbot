@@ -1,10 +1,10 @@
 'use strict';
-import { Command } from 'yamdbf';
+import { Bot, Command } from 'yamdbf';
 import { User, Message, TextChannel } from 'discord.js';
 
 export default class Todo extends Command
 {
-	public constructor(bot)
+	public constructor(bot: Bot)
 	{
 		super(bot, {
 			name: 'todo',

@@ -1,10 +1,10 @@
 'use strict';
-import { Command } from 'yamdbf';
+import { Bot, Command } from 'yamdbf';
 import { User, Message } from 'discord.js';
 
 export default class Tag extends Command
 {
-	public constructor(bot)
+	public constructor(bot: Bot)
 	{
 		super(bot, {
 			name: 'tag',
