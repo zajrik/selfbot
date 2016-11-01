@@ -1,11 +1,11 @@
 'use strict';
-import { Command } from 'yamdbf';
+import { Bot, Command } from 'yamdbf';
 import { User, Message } from 'discord.js';
 import { execSync } from 'child_process';
 
 export default class Bash extends Command
 {
-	public constructor(bot)
+	public constructor(bot: Bot)
 	{
 		super(bot, {
 			name: '$',
