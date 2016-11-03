@@ -39,7 +39,17 @@ export default class Bash extends Command
 			result = err;
 		}
 		const output: string = `**INPUT:**\n\`\`\`bash\n$ ${args.join(' ')}\n\`\`\`\n`
-			+ `**OUTPUT:**\n\`\`\`ts\n${result}\n\`\`\``;
+			+ `**OUTPUT:**\n\`\`\`ts\n${this._clean(result)}\n\`\`\``;
 		return execution.delete().then(() => message.channel.sendMessage(output, { split: true }));
+	}
+
+	private _clean(text: string): string
+	{
+		return typeof text === 'string' ? text
+			.replace(/`/g, `\`${String.fromCharCode(8203)}`)
+			.replace(/@/g, `@${String.fromCharCode(8203)}`)
+			.replace(/[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g, '[REDACTED]')
+			.replace(/email: '[^']+'/g, `email: '[REDACTED]'`)
+			: text;
 	}
 };

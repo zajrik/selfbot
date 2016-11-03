@@ -8,7 +8,7 @@ export default class CoinFlip extends Command
 	{
 		super(bot, {
 			name: 'coin',
-			aliases: [],
+			aliases: ['coins'],
 			description: 'Flip some coins!',
 			usage: '<prefix>coin [quantity]',
 			extraHelp: '',

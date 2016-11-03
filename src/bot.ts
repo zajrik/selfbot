@@ -3,7 +3,7 @@ import * as path from 'path';
 const config = require('./config.json');
 
 const bot: Bot = new Bot({ // tslint:disable-line
-	name: 'selbot',
+	name: 'selfbot',
 	token: config.token,
 	config: config,
 	version: '2.0.0',
