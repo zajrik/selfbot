@@ -4,7 +4,7 @@
 		"no-unused-expression": true,
 		"no-duplicate-variable": true,
 		"no-duplicate-key": true,
-		"no-unused-variable": true,
+		"no-unused-variable": [true, {"ignore-pattern": "^_"}],
 		"no-invalid-this": true,
 		"no-shadowed-variable": true,
 		"comment-format": [
@@ -20,23 +20,23 @@
 		"eofline": true,
 		"no-bitwise": false,
 		"no-console": [false],
-		"member-ordering": [
-			true, { "order": [
-              "public-static-field",
-              "public-static-method",
-              "protected-static-field",
-              "protected-static-method",
-              "private-static-field",
-              "private-static-method",
-              "public-instance-field",
-              "protected-instance-field",
-              "private-instance-field",
-              "constructor",
-              "public-instance-method",
-              "protected-instance-method",
-              "private-instance-method"
-            ]}
-		],
+		// "member-ordering": [
+		// 	true, { "order": [
+        //       "protected-static-field",
+        //       "private-static-field",
+        //       "public-static-field",
+        //       "protected-instance-field",
+        //       "private-instance-field",
+        //       "public-instance-field",
+        //       "constructor",
+        //       "protected-instance-method",
+        //       "private-instance-method",
+        //       "public-instance-method",
+        //       "private-static-method",
+        //       "protected-static-method",
+        //       "public-static-method"
+        //     ]}
+		// ],
 		"member-access": [true, "check-accessor", "check-constructor"],
 		"no-consecutive-blank-lines": true,
 		"no-constructor-vars": true,
@@ -59,6 +59,30 @@
 			"check-separator",
 			"check-type",
 			"check-typecast"
+		],
+		"typedef": [
+			"parameter",
+			"call-signature",
+			"member-variable-declaration",
+			"property-declaration",
+			"variable-declaration"
+		],
+		"typedef-whitespace": [
+			true,
+			{
+				"call-signature": "nospace",
+				"index-signature": "nospace",
+				"parameter": "nospace",
+				"property-declaration": "nospace",
+				"variable-declaration": "nospace"
+			},
+			{
+				"call-signature": "onespace",
+				"index-signature": "onespace",
+				"parameter": "onespace",
+				"property-declaration": "onespace",
+				"variable-declaration": "onespace"
+			}
 		]
 	}
 }
