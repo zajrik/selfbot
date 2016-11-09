@@ -3,6 +3,7 @@
     "yamdbf": "https://raw.githubusercontent.com/zajrik/yamdbf-typings/a50fc3504173514385ac44943ae5f0088c5ddc48/yamdbf.d.ts"
   },
   "globalDependencies": {
+    "discord.js": "https://raw.githubusercontent.com/acdenisSK/discord.js-typings/9ee9abbba71ba3e7404ba2e3d172af4f974303f5/discord.d.ts",
     "node": "registry:dt/node#6.0.0+20161019125345",
     "yamdbf": "https://raw.githubusercontent.com/zajrik/yamdbf-typings/3b2dff4d7d57c90615b06f3e80050e7822b26755/yamdbf.d.ts"
   }
