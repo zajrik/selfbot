@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/zajrik/selfbot#readme",
   "dependencies": {
-    "yamdbf": "^2.4.0"
+    "yamdbf": "^2.5.2"
   },
   "devDependencies": {
     "@types/node": "^6.0.46",
