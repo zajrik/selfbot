@@ -1,6 +1,6 @@
 import { Bot } from 'yamdbf';
 import * as path from 'path';
-const config = require('./config.json');
+const config: any = require('./config.json');
 
 const bot: Bot = new Bot({ // tslint:disable-line
 	name: 'selfbot',

@@ -24,7 +24,7 @@ export default class CoinFlip extends Command
 			message.edit(`Flipping coins...`);
 			let heads: number = 0;
 			let tails: number = 0;
-			for (let i = 0; i < quantity; i++)
+			for (let i: number = 0; i < quantity; i++)
 			{
 				const result: number = Math.floor(Math.random() * 2);
 				if (result === 0) heads++;

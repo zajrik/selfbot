@@ -21,11 +21,11 @@ export default class Dice extends Command
 		message.delete();
 		const dice: number[] = [4, 6, 8, 10, 12, 20, 100];
 		const sides: number = <number> args[0];
-		let quantity: number = <number> (args[1] && args[1] > 100 ? 100 : args[1]) || 1;
+		let quantity: number = Math.min(<number> args[1] || 1, 100);
 		if (!dice.includes(sides)) return false;
 		if (quantity > 100) quantity = 100;
 		let output: string = '```xl\n' + `Rolling ${quantity} d${sides}:\n`;
-		for (let i = 1; i <= quantity; i++)
+		for (let i: number = 1; i <= quantity; i++)
 		{
 			const thisRoll: number = Math.floor(Math.random() * sides) + 1;
 			let spacer: string;
