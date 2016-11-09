@@ -32,7 +32,7 @@ export default class Bash extends Command
 		let result: string;
 		try
 		{
-			result = execSync(args.join(' '), { cwd: '../', timeout: 5000 }).toString();
+			result = execSync(args.join(' '), { cwd: '../', timeout: 10000 }).toString();
 		}
 		catch (err)
 		{
