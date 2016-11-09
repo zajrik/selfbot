@@ -21,7 +21,7 @@ export default class Prune extends Command
 		const quantity: number = <number> args[0];
 		if (!quantity || quantity < 1)
 			return message.channel.sendMessage('You must enter a number of messages to prune')
-				.then(res => (<Message> res).delete(5000));
+				.then((res: Message) => res.delete(5000));
 		let messages: Collection<string, Message>;
 		messages = (await message.channel.fetchMessages({ limit: 100 }))
 			.filter((a: Message) => a.author.id === this.bot.user.id);
@@ -30,6 +30,6 @@ export default class Prune extends Command
 		for (let key of toDelete) { await messages.get(key).delete(); }
 		return pruning.delete()
 			.then(() => message.channel.sendMessage('Prune operation completed.'))
-			.then(res => (<Message> res).delete(5000));
+			.then((res: Message) => res.delete(5000));
 	}
 };

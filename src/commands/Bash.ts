@@ -24,10 +24,10 @@ export default class Bash extends Command
 		message.delete();
 		if (!args[0])
 			return message.channel.sendMessage('You must provide a command to execute.')
-				.then(res => (<Message> res).delete(5000));
+				.then((res: Message) => res.delete(5000));
 		if (args.includes('rm') || args.includes('sudo') || args.includes('su'))
 			return message.channel.sendMessage('Forbidden.')
-				.then(res => (<Message> res).delete(5000));
+				.then((res: Message) => res.delete(5000));
 		const execution: Message = <Message> await message.channel.sendMessage('_Executing..._');
 		let result: string;
 		try

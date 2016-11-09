@@ -27,7 +27,7 @@ export default class Warframe extends Command
 		const response: Collection<string, Message> = await cmdMsg.channel
 			.awaitMessages(a => a.author.id === wfBot.id, { max: 1, time: 10000 });
 		if (!response.first()) return message.edit('Warframe bot response timed out.')
-			.then(res => (<Message> res).delete(5000));
+			.then((res: Message) => res.delete(5000));
 		return message.edit(response.first().content).then(res =>
 			prune ? (<Message> res).delete(prune * 1000) : null);
 	}

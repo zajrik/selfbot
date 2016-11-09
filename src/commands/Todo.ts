@@ -22,7 +22,7 @@ export default class Todo extends Command
 		if (!this.bot.storage.exists('todochannel'))
 			return message.channel.sendMessage(`You have not set a channel to save todos. `
 				+ `Run \`${this.bot.getPrefix(message.guild)}storage set todochannel <id>\` to set one.`)
-				.then(res => (<Message> res).delete(10000));
+				.then((res: Message) => res.delete(10000));
 		return (<TextChannel> this.bot.channels.get(this.bot.storage.getItem('todochannel')))
 			.sendCode('css', `TODO: ${args.join(' ')}`);
 	}
