@@ -26,4 +26,4 @@ export default class Todo extends Command
 		return (<TextChannel> this.bot.channels.get(this.bot.storage.getItem('todochannel')))
 			.sendCode('css', `TODO: ${args.join(' ')}`);
 	}
-};
+}

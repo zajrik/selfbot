@@ -39,4 +39,4 @@ export default class Dice extends Command
 		output += '\n```';
 		message.channel.sendMessage(output);
 	}
-};
+}

@@ -38,9 +38,12 @@ export default class Bash extends Command
 		{
 			result = err;
 		}
-		const output: string = `**INPUT:**\n\`\`\`bash\n$ ${args.join(' ')}\n\`\`\`\n`
-			+ `**OUTPUT:**\n\`\`\`ts\n${this._clean(result)}\n\`\`\``;
-		return execution.delete().then(() => message.channel.sendMessage(output, { split: true }));
+		const output: string = `**INPUT:**\n\`\`\`bash\n$ ${args.join(' ')}\n\`\`\`\n**OUTPUT:**`;
+		return execution.delete().then(() =>
+		{
+			message.channel.sendMessage(output);
+			message.channel.sendCode('ts', this._clean(result), { split: true });
+		});
 	}
 
 	private _clean(text: string): string
@@ -52,4 +55,4 @@ export default class Bash extends Command
 			.replace(/email: '[^']+'/g, `email: '[REDACTED]'`)
 			: text;
 	}
-};
+}

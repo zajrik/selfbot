@@ -38,4 +38,4 @@ export default class CoinFlip extends Command
 			return message.edit(`Flipped a coin: ${result === 0 ? 'heads' : 'tails'}`);
 		}
 	}
-};
+}
