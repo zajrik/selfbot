@@ -13,4 +13,5 @@ const bot: Bot = new Bot({ // tslint:disable-line
 })
 .setDefaultSetting('prefix', '!')
 .start()
-.on('ready', () => console.log('\u0007'));
+.on('ready', () => console.log('\u0007'))
+.on('disconnect', () => process.exit());
