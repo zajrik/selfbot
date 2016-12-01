@@ -8,10 +8,10 @@ const bot: Bot = new Bot({ // tslint:disable-line
 	config: config,
 	version: '2.0.0',
 	statusText: null,
+	readyText: 'Ready!\u0007',
 	selfbot: true,
 	commandsDir: path.join(__dirname, 'commands')
 })
 .setDefaultSetting('prefix', '!')
 .start()
-.on('ready', () => console.log('\u0007'))
 .on('disconnect', () => process.exit());
