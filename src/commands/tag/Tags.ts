@@ -26,4 +26,4 @@ export default class Tags extends Command
 		return message.channel.sendMessage(`**Current tags:**\n${Object.keys(tags).sort().join(', ')}`)
 			.then((res: Message) => res.delete(10000));
 	}
-};
+}

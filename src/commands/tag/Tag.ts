@@ -58,4 +58,4 @@ export default class Tag extends Command
 				return message.channel.sendMessage(this.bot.storage.getItem(`tags/${args[0]}`));
 		}
 	}
-};
+}

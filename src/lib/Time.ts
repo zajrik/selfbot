@@ -1,27 +1,31 @@
+'use strict';
+
+/**
+ * Represents a difference between two given valid Unix time signatures
+ */
 type Difference = {
-	ms?: number;
-	days?: number;
-	hours?: number;
-	mins?: number;
-	secs?: number;
+	ms?: int;
+	days?: int;
+	hours?: int;
+	mins?: int;
+	secs?: int;
 	toString(): string;
 	toSimplifiedString?(): string;
 }
+
+type int = number;
 
 /**
  * Extend the Date class to provide helper methods
  */
 export default class Time extends Date
 {
+	public constructor() { super(); }
+
 	/**
-	 * Return an object containing the time difference between a and be
-	 * @param {int} a Time in milliseconds
-	 * @param {int} b Time in milliseconds
-	 * @returns {Object} object containing days, hours, mins, secs, and ms
-	 *                  Also exposes two methods, toString and
-	 *                  toSimplifiedString for the object
+	 * Return an object containing the time difference between a and b
 	 */
-	public static difference(a: number, b: number): Difference
+	public static difference(a: int, b: int): Difference
 	{
 		let difference: Difference = {};
 		let ms: number = a - b;
@@ -43,17 +47,32 @@ export default class Time extends Date
 		if (secs) { difference.secs = secs; timeString += `${secs} secs`; }
 
 		// Returns the time string as '# days, # hours, # mins, # secs'
-		difference.toString = (): string => timeString;
+		difference.toString = (): string => timeString.trim();
 
 		// Returns the time string as '#d #h #m #s'
 		difference.toSimplifiedString = (): string =>
-			timeString.replace(/ours|ins|ecs| /g, '').replace(/,/g, ' ');
+			timeString.replace(/ays|ours|ins|ecs| /g, '').replace(/,/g, ' ').trim();
 
 		return difference;
 	}
 
-	public constructor()
+	/**
+	 * Parse a duration shorthand and return the duration in ms
+	 * 
+	 * Shorthand examples: 10m, 5h, 1d
+	 */
+	public static parseShorthand(shorthand: string): int
 	{
-		super();
+		let duration: int, match: RegExpMatchArray ;
+		if (/^(?:\d+(?:\.\d+)?)[m|h|d]$/.test(<string> shorthand))
+		{
+			match = shorthand.match(/(\d+(?:\.\d+)?)(m|h|d)$/);
+			duration = parseFloat(match[1]);
+			duration = match[2] === 'm'
+				? duration * 1000 * 60 : match[2] === 'h'
+				? duration * 1000 * 60 * 60 : match[2] === 'd'
+				? duration * 1000 * 60 * 60 * 24 : null;
+		}
+		return duration;
 	}
 }

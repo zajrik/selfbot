@@ -41,10 +41,10 @@ export default class Warframe extends Command
 			{
 				if (changed.author.id !== wfBot.id
 					&& changed.channel.id !== cmdMsg.channel.id) return;
+				this.bot.removeListener('messageUpdate', update);
+				this.bot.clearTimeout(pruneTimer);
 				output.edit(changed.content)
 					.then((res: Message) => prune ? res.delete(prune * 1000) : null);
-				this.bot.clearTimeout(pruneTimer);
-				this.bot.removeListener('messageUpdate', update);
 			};
 			this.bot.on('messageUpdate', update);
 			this.bot.setTimeout(() => this.bot.removeListener('messageUpdate', update), 10000);
@@ -57,4 +57,4 @@ export default class Warframe extends Command
 				.then((res: Message) => res.delete(5000));
 		});
 	}
-};
+}

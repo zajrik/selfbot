@@ -30,6 +30,6 @@ export default class Prune extends Command
 		for (let key of toDelete) { await messages.get(key).delete(); }
 		return pruning.delete()
 			.then(() => message.channel.sendMessage('Prune operation completed.'))
-			.then((res: Message) => res.delete(5000));
+			.then((res: Message) => res.delete(3000));
 	}
-};
+}
