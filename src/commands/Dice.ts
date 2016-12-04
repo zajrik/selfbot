@@ -21,22 +21,16 @@ export default class Dice extends Command
 		message.delete();
 		const dice: number[] = [4, 6, 8, 10, 12, 20, 100];
 		const sides: number = <number> args[0];
-		let quantity: number = Math.min(<number> args[1] || 1, 100);
+		const quantity: number = Math.min(<number> args[1] || 1, 100);
 		if (!dice.includes(sides)) return false;
-		if (quantity > 100) quantity = 100;
-		let output: string = '```xl\n' + `Rolling ${quantity} d${sides}:\n`;
+		let output: string = `Rolling ${quantity} d${sides}:\n`;
 		for (let i: number = 1; i <= quantity; i++)
 		{
 			const thisRoll: number = Math.floor(Math.random() * sides) + 1;
-			let spacer: string;
-			if (sides === 100 && thisRoll < 100) spacer = ' ';
-			if (sides === 100 && thisRoll < 10) spacer = '  ';
-			if ((sides === 20 || sides === 12 || sides === 10) &&
-				thisRoll < 10) spacer = ' ';
-			output += `[${spacer || ''}${thisRoll}] `;
+			const padding: string = ' '.repeat(sides.toString().length - thisRoll.toString().length);
+			output += `[${padding}${thisRoll}] `;
 			if (i % 5 === 0) output += '\n';
 		}
-		output += '\n```';
-		message.channel.sendMessage(output);
+		message.channel.sendCode('xl', output);
 	}
 }
