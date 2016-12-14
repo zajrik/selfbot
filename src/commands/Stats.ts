@@ -20,18 +20,21 @@ export default class Stats extends Command
 
 	public action(message: Message, args: Array<string | number>, mentions: User[], original: string): any
 	{
+		message.delete();
 		const embed: RichEmbed = new RichEmbed()
 			.setAuthor('Selfbot Statistics', this.bot.user.avatarURL)
 			.setColor(8450847)
 			.addField('Mem Usage', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
 			.addField('Uptime', Time.difference(this.bot.uptime * 2, this.bot.uptime).toString(), true)
 			.addField('\u200b', '\u200b', true)
-			.addField('Users', this.bot.users.size.toString(), true)
+			.addField('Users', this.bot.guilds.map(g => g.memberCount).reduce((a, b) => a + b), true)
 			.addField('Servers', this.bot.guilds.size.toString(), true)
 			.addField('Channels', this.bot.channels.size.toString(), true)
 			.addField('YAMDBF', `v${version}`, true)
 			.addField('Discord.js', `v${Discord.version}`, true)
-			.addField('\u200b', '\u200b', true);
+			.addField('\u200b', '\n\u200b', true)
+			.setFooter('YAMDBF', this.bot.user.avatarURL)
+			.setTimestamp();
 
 		message.channel.sendEmbed(embed);
 	}
