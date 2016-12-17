@@ -21,66 +21,54 @@ export default class Help extends Command
 
 	public async action(message: Message, args: Array<string | number>, mentions: User[], original: string): Promise<any>
 	{
-		let dm: boolean = message.channel.type === 'dm' || message.channel.type === 'group';
 		if (this.bot.selfbot) message.delete();
+		const dm: boolean = message.channel.type === 'dm' || message.channel.type === 'group';
+		const mentionName: string = `@${this.bot.user.username}#${this.bot.user.discriminator}`;
 
+		let usableCommands: Collection<string, Command>;
 		let command: Command;
-		let mentionName: string = `@${this.bot.user.username}#${this.bot.user.discriminator}`;
-		let embed: RichEmbed = new RichEmbed();
 		let output: string = '';
-		if (!args[0] && !dm)
-		{
-			output += `Available commands in ${message.channel}\n\`\`\`ldif\n`;
-			let usableCommands: Collection<string, Command> = this.bot.commands
-				.filterGuildUsable(this.bot, message);
-			let widest: int = usableCommands.map(c => c.name.length).reduce((a, b) => Math.max(a, b));
-			output += usableCommands.map(c =>
-				`${this._padRight(c.name, widest + 1)}: ${c.description}`).sort().join('\n');
-			output += `\`\`\`Use \`<prefix>help <command>\` ${this.bot.selfbot ? '' : `or \`${
-				mentionName} help <command>\` `}for more information.\n\n`;
-		}
-		else if (!args[0] && dm)
-		{
-			output += `Available commands in this DM:\n\`\`\`ldif\n`;
-			let usableCommands: Collection<string, Command> = this.bot.commands
-				.filterDMUsable(this.bot, message);
-			let widest: number = usableCommands.map(c => c.name.length).reduce((a, b) => Math.max(a, b));
-			output += usableCommands.map(c =>
-				`${this._padRight(c.name, widest + 1)}: ${c.description}`).sort().join('\n');
-			output += `\`\`\`Use \`<prefix>help <command>\` ${this.bot.selfbot ? '' : `or \`${
-				mentionName} help <command>\` `}for more information.\n\n`;
-		}
-		else if (args[0])
+		let embed: RichEmbed = new RichEmbed();
+
+		if (!args[0])
 		{
 			if (!dm)
 			{
-				command = this.bot.commands
-					.filterGuildUsable(this.bot, message)
-					.filter(c => c.name === args[0]
-						|| c.aliases.includes(args[0])).first();
+				output += `Available commands in ${message.channel}\n\`\`\`ldif\n`;
+				usableCommands = this.bot.commands.filterGuildUsable(this.bot, message);
 			}
 			else
 			{
-				command = this.bot.commands
-					.filterDMHelp(this.bot, message)
-					.filter(c => c.name === args[0]
-						|| c.aliases.includes(args[0])).first();
+				output += `Available commands in this DM:\n\`\`\`ldif\n`;
+				usableCommands = this.bot.commands.filterDMUsable(this.bot, message);
 			}
-			if (!command)
-			{
-				output += `A command by that name could not be found or you do\nnot have permissions to view it in this guild or channel`;
-			}
-			else
-			{
-				output += '```ldif\n'
-					+ `Command: ${command.name}\n`
-					+ `Description: ${command.description}\n`
-					+ (command.aliases.length > 0 ? `Aliases: ${command.aliases.join(', ')}\n` : '')
-					+ `Usage: ${command.usage}\n`
-					+ (command.extraHelp ? `\n${command.extraHelp}` : '')
-					+ '\n```';
-			}
+
+			const widest: int = usableCommands.map(c => c.name.length).reduce((a, b) => Math.max(a, b));
+			output += usableCommands.map(c =>
+				`${this._padRight(c.name, widest + 1)}: ${c.description}`).sort().join('\n');
+
+			output += `\`\`\`Use \`<prefix>help <command>\` ${this.bot.selfbot ? '' : `or \`${
+				mentionName} help <command>\` `}for more information.\n\n`;
 		}
+		else
+		{
+			const filter: Function = c => c.name === args[0] || c.aliases.includes(<string> args[0]);
+			if (!dm) command = this.bot.commands
+				.filterGuildUsable(this.bot, message).filter(filter).first();
+			else command = this.bot.commands
+				.filterDMHelp(this.bot, message).filter(filter).first();
+
+			if (!command) output = `A command by that name could not be found or you do\n`
+				+ `not have permissions to view it in this guild or channel`;
+			else output = '```ldif\n'
+				+ `Command: ${command.name}\n`
+				+ `Description: ${command.description}\n`
+				+ (command.aliases.length > 0 ? `Aliases: ${command.aliases.join(', ')}\n` : '')
+				+ `Usage: ${command.usage}\n`
+				+ (command.extraHelp ? `\n${command.extraHelp}` : '')
+				+ '\n```';
+		}
+
 		output = dm ? output.replace(/<prefix>/g, '')
 			: output.replace(/<prefix>/g, this.bot.getPrefix(message.guild) || '');
 
