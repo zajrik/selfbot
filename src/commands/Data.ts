@@ -38,6 +38,7 @@ export default class Data extends Command
 
 		const receivedPerDay: string = ((received / 1000 / 1000 / 1000) / uptime).toFixed(2);
 		const embed: RichEmbed = new RichEmbed()
+			.setColor(8450847)
 			.setDescription('**Received Data Statistics**')
 			.addField('Server Uptime', `${uptime.toFixed(2)} days`)
 			.addField('Data Received', receivedSimple)
