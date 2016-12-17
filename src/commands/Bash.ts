@@ -22,14 +22,16 @@ export default class Bash extends Command
 	public async action(message: Message, args: Array<string | number>, mentions: User[], original: string): Promise<any>
 	{
 		message.delete();
+
 		if (!args[0])
 			return message.channel.sendMessage('You must provide a command to execute.')
 				.then((res: Message) => res.delete(5000));
 		if (args.includes('rm') || args.includes('sudo') || args.includes('su'))
 			return message.channel.sendMessage('Forbidden.')
 				.then((res: Message) => res.delete(5000));
-		const execution: Message = <Message> await message.channel.sendMessage('_Executing..._');
+
 		let result: string;
+		const execution: Message = <Message> await message.channel.sendMessage('_Executing..._');
 		try
 		{
 			result = execSync(args.join(' '), { cwd: '../', timeout: 10000 }).toString();
@@ -39,11 +41,10 @@ export default class Bash extends Command
 			result = err;
 		}
 		const output: string = `**INPUT:**\n\`\`\`bash\n$ ${args.join(' ')}\n\`\`\`\n**OUTPUT:**`;
-		return execution.delete().then(() =>
-		{
-			message.channel.sendMessage(output);
-			message.channel.sendCode('ts', this._clean(result), { split: true });
-		});
+
+		await execution.delete();
+		message.channel.sendMessage(output);
+		message.channel.sendCode('ts', this._clean(result), { split: true });
 	}
 
 	private _clean(text: string): string
