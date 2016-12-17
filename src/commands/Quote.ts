@@ -9,8 +9,8 @@ export default class Quote extends Command
 		super(bot, {
 			name: 'quote',
 			aliases: [],
-			description: 'quote a message',
-			usage: '<prefix>quote <message id>',
+			description: 'Quote a message',
+			usage: '<prefix>quote <message id> [#channel|channel id]',
 			extraHelp: '',
 			group: 'base',
 			guildOnly: false,
@@ -34,9 +34,9 @@ export default class Quote extends Command
 		if (!quote) return message.channel.sendMessage(`*Failed to fetch message.*`);
 		const embed: RichEmbed = new RichEmbed()
 			.setColor(color)
-			.setAuthor(`${quote.author.username}#${quote.author.discriminator} | ${
-				quote.guild.name} #${(<TextChannel> quote.channel).name}`, quote.author.avatarURL)
+			.setAuthor(`${quote.author.username}#${quote.author.discriminator}`, quote.author.avatarURL)
 			.setDescription(quote.content)
+			.setFooter(`${quote.guild.name} #${(<TextChannel> quote.channel).name}`)
 			.setTimestamp(quote.createdAt);
 
 		message.channel.sendEmbed(embed);
