@@ -30,7 +30,7 @@ export default class Data extends Command
 		const uptime: float = parseFloat(execSync(`awk '{print $1/60/60/24}' /proc/uptime`,
 			{ timeout: 10e3 }).toString());
 		const dataRegex: RegExp = /RX bytes:(\d+) \((\d+(?:\.\d+ [K|M|G]B))\)/;
-		const data: RegExpMatchArray = execSync('ifconfig', { timeout: 10e3 }).toString()
+		const data: RegExpMatchArray = execSync(`ifconfig | grep '[K|M|G]B'`, { timeout: 10e3 }).toString()
 			.match(dataRegex);
 
 		const received: int = parseInt(data[1]);
