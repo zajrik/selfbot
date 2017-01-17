@@ -29,15 +29,19 @@ export default class Quote extends Command
 		const channelId: string = args[1] && channelRegex.test(<string> args[1])
 			? (<string> args[1]).match(channelRegex)[1] : null;
 		const quote: Message = (await (<TextChannel> this.bot.channels.get(channelId) || message.channel)
-			.fetchMessages({ limit: 1, around: messageId })).first();
+			.fetchMessages({ limit: 6, around: messageId })).get(messageId);
 		const color: number = quote.member ? quote.member.highestRole.color : 8450847;
 		if (!quote) return message.channel.sendMessage(`*Failed to fetch message.*`);
 		const embed: RichEmbed = new RichEmbed()
 			.setColor(color)
-			.setAuthor(`${quote.author.username}#${quote.author.discriminator}`, quote.author.avatarURL)
+			.setAuthor(`${quote.guild ? quote.member.displayName : quote.author.username}#${quote.author.discriminator}`,
+				quote.author.avatarURL)
 			.setDescription(quote.content)
-			.setFooter(`${quote.guild.name} #${(<TextChannel> quote.channel).name}`)
 			.setTimestamp(quote.createdAt);
+
+			if (quote.guild) embed
+				.setFooter(`${quote.guild.name} #${(<TextChannel> quote.channel).name}`);
+			else embed.setFooter(`DM`);
 
 		message.channel.sendEmbed(embed);
 	}
